@@ -16,9 +16,9 @@ public class WorkWitFile {
     private static String filePath = System.getProperty("user.dir") + System.getProperty("file.separator") + "ecobike";
     private static String fileName = "ecobike.txt";
 
-    public static boolean checkPathAndFile(String filePath) {
-        File pathTofile = new File(filePath);
-        return pathTofile.exists() != false;
+    public static boolean checkPathAndFile() {
+        File isFile = new File(filePath, fileName);
+        return isFile.exists() != false;
     }
 
     public static void writeFile() {
