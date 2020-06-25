@@ -1,4 +1,4 @@
-package org.example;
+package ecobike.com;
 
 /**
  * Hello world!

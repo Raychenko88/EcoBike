@@ -1,8 +1,8 @@
-package org.example.repository;
+package ecobike.com.repository;
 
-import org.example.model.ElectricBike;
-import org.example.model.FoldingBike;
-import org.example.model.Speedelec;
+import ecobike.com.model.ElectricBike;
+import ecobike.com.model.Speedelec;
+import ecobike.com.model.FoldingBike;
 
 import java.util.Set;
 
