@@ -1,4 +1,4 @@
-package ecobike.com;
+package com.ecobike;
 
 import org.junit.jupiter.api.Test;
 

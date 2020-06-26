@@ -1,4 +1,4 @@
-package ecobike.com.model;
+package com.ecobike.model;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -9,14 +9,14 @@ import java.math.BigDecimal;
 @Setter
 @Getter
 @AllArgsConstructor
-public class FoldingBike {
+public class ElectricBike {
 
-    public Integer id;
+//    public Integer id;
     public String brand;
-    public Integer wheelSize;
-    public Integer numberOfSpeeds;
+    public Integer maximumSpeed;
     public Integer weight;
     public boolean lightsAtFrontAndBack;
+    public Integer batteryCapacity;
     public String color;
-    public BigDecimal price;
+    public Integer price;
 }

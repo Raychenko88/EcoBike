@@ -1,4 +1,4 @@
-package ecobike.com.service;
+package com.ecobike.service;
 
 public class BikeService {
 }
