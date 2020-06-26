@@ -38,7 +38,6 @@ public class FileManagerService {
 
     public static List<Object> getDataFromFile(String fileName){
         List<Object> items = new ArrayList<>();
-        
 
         try {
             FileExtractor fileExtractor = new FileExtractor();

@@ -8,7 +8,7 @@ import java.util.Set;
 
 public class CollectionBike {
 
-    public  Set<FoldingBike> foldingBikes;
-    public  Set<ElectricBike> electricBikes;
-    public  Set<Speedelec> speedelecs;
+    public static Set<FoldingBike> foldingBikes;
+    public static Set<ElectricBike> electricBikes;
+    public static Set<Speedelec> speedelecs;
 }
