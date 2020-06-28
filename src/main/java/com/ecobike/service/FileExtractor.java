@@ -1,9 +1,12 @@
 package com.ecobike.service;
 
+import lombok.EqualsAndHashCode;
+
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.net.URL;
 
+@EqualsAndHashCode
 public class FileExtractor {
         ClassLoader classLoader = getClass().getClassLoader();
 

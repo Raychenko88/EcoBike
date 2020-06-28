@@ -5,6 +5,7 @@ import com.ecobike.model.FoldingBike;
 import com.ecobike.model.Speedelec;
 import com.ecobike.repository.CollectionBike;
 import com.sun.deploy.util.StringUtils;
+import lombok.EqualsAndHashCode;
 
 import java.io.*;
 import java.math.BigDecimal;
@@ -15,10 +16,25 @@ import java.util.List;
 import java.util.Scanner;
 import java.util.Set;
 
-public class FileManagerService {
+@EqualsAndHashCode
+public class FileManagerService extends Thread{
 
-//    private static String filePath = System.getProperty("user.dir") + System.getProperty("file.separator") + "ecobike";
-//    private static String fileName = "ecobike.txt";
+    private static String fileName = "EcoBike.txt";
+
+    @Override
+    public void run() {
+        addAllCollections(fileName);
+    }
+
+    public static void addAllCollections(String fileName) {
+        if (checkPathAndFile(fileName)) {
+            FileManagerService.getDataFromFile(fileName);
+            FileManagerService.addToCollectionFoldingBike(FileManagerService.getDataFromFile(fileName));
+            FileManagerService.addToCollectionSpeedelec(FileManagerService.getDataFromFile(fileName));
+            FileManagerService.addToCollectionElectricBike(FileManagerService.getDataFromFile(fileName));
+        }
+        System.out.println("Check data fail");
+    }
 
     public static boolean checkPathAndFile(String fileName) {
         File isFile = new File(fileName);
@@ -36,8 +52,7 @@ public class FileManagerService {
         }
     }
 
-
-    public static List<Object> getDataFromFile(String fileName) {
+    public static synchronized  List<Object> getDataFromFile(String fileName) {
         List<Object> items = new ArrayList<>();
 
         try {
@@ -68,12 +83,11 @@ public class FileManagerService {
         return "";
     }
 
-
-    public static Set<Speedelec> addToCollectionSpeedelec(List<Object> items) {
+    public static synchronized  Set<Speedelec> addToCollectionSpeedelec(List<Object> items) {
         String[] subStr;
         for (Object item : items) {
             String str = item.toString();
-            String delimeter = ";"; // Разделитель
+            String delimeter = ";";
             if (item.toString().startsWith("SPEEDELEC")) {
                 subStr = str.split(delimeter);
                 Speedelec speedelec = new Speedelec();
@@ -85,57 +99,52 @@ public class FileManagerService {
                 speedelec.setColor(subStr[5].trim());
                 speedelec.setPrice(Integer.parseInt(subStr[6].trim()));
                 CollectionBike.speedelecs.add(speedelec);
-                System.out.println("ADD wit SPEEDELEC");
             }
         }
         return CollectionBike.speedelecs;
     }
 
-
-    public static Set<ElectricBike> addToCollectionElectricBike(List<Object> items) {
+    public static synchronized  Set<ElectricBike> addToCollectionElectricBike(List<Object> items) {
         String[] subStr;
         for (Object item : items) {
             String str = item.toString();
-            String delimeter = ";"; // Разделитель
+            String delimeter = ";";
             if (item.toString().startsWith("E-BIKE")) {
                 subStr = str.split(delimeter);
-                ElectricBike electricBike = new ElectricBike(
-                        subStr[0],
-                        Integer.parseInt(subStr[1].trim()),
-                        Integer.parseInt(subStr[2].trim()),
-                        Boolean.parseBoolean(subStr[3].trim()),
-                        Integer.parseInt(subStr[4].trim()),
-                        subStr[5].trim(),
-                        Integer.parseInt(subStr[6].trim()));
+                ElectricBike electricBike = new ElectricBike();
+                electricBike.setBrand(subStr[0]);
+                electricBike.setMaximumSpeed(Integer.parseInt(subStr[1].trim()));
+                electricBike.setWeight(Integer.parseInt(subStr[2].trim()));
+                electricBike.setLightsAtFrontAndBack(Boolean.parseBoolean(subStr[3].trim()));
+                electricBike.setBatteryCapacity(Integer.parseInt(subStr[4].trim()));
+                electricBike.setColor(subStr[5].trim());
+                electricBike.setPrice(Integer.parseInt(subStr[6].trim()));
                 CollectionBike.electricBikes.add(electricBike);
-                System.out.println("ADD wit E-BIKE");
             }
         }
         return CollectionBike.electricBikes;
     }
 
-
-    public static Set<FoldingBike> addToCollectionFoldingBike(List<Object> items) {
+    public static synchronized  Set<FoldingBike> addToCollectionFoldingBike(List<Object> items) {
         String[] subStr;
         for (Object item : items) {
             String str = item.toString();
-            String delimeter = ";"; // Разделитель
+            String delimeter = ";";
             if (item.toString().startsWith("FOLDING")) {
                 subStr = str.split(delimeter);
-                FoldingBike foldingBike = new FoldingBike(
-                        subStr[0],
-                        Integer.parseInt(subStr[1].trim()),
-                        Integer.parseInt(subStr[2].trim()),
-                        Integer.parseInt(subStr[3].trim()),
-                        Boolean.parseBoolean(subStr[4].trim()),
-                        subStr[5].trim(),
-                        Integer.parseInt(subStr[6].trim()));
+                FoldingBike foldingBike = new FoldingBike();
+                foldingBike.setBrand(subStr[0]);
+                foldingBike.setWheelSize(Integer.parseInt(subStr[1].trim()));
+                foldingBike.setNumberOfSpeeds(Integer.parseInt(subStr[2].trim()));
+                foldingBike.setWeight(Integer.parseInt(subStr[3].trim()));
+                foldingBike.setLightsAtFrontAndBack(Boolean.parseBoolean(subStr[4].trim()));
+                foldingBike.setColor(subStr[5].trim());
+                foldingBike.setPrice(Integer.parseInt(subStr[6].trim()));
                 CollectionBike.foldingBikes.add(foldingBike);
-                System.out.println("ADD wit FOLDING");
-                System.out.println(item);
             }
         }
         return CollectionBike.foldingBikes;
     }
+
 }
 

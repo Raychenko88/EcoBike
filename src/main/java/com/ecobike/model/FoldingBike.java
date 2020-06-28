@@ -1,14 +1,14 @@
 package com.ecobike.model;
 
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.Setter;
+import lombok.*;
 
 import java.math.BigDecimal;
 
 @Setter
 @Getter
 @AllArgsConstructor
+@NoArgsConstructor
+@EqualsAndHashCode
 public class FoldingBike {
 
 //    public Integer id;
