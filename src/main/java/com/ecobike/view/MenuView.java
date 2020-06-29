@@ -5,7 +5,7 @@ import lombok.EqualsAndHashCode;
 
 import java.util.Scanner;
 
-@EqualsAndHashCode
+
 public class MenuView {
     static Scanner scanner = new Scanner(System.in);
 
@@ -20,7 +20,6 @@ public class MenuView {
 
     public static void mainMenu() {
         System.out.println(showChoice);
-        System.out.println("To exit the program, enter - off");
         while (scanner.hasNextLine()) {
             String intChoice = scanner.nextLine();
             System.out.println("Enter the number of the menu item");
@@ -33,7 +32,7 @@ public class MenuView {
                     System.out.println("You entered incorrect data. Enter the menu number again, and then enter the data");
                     mainMenu();
                 }
-            } else if (intChoice.equals("off")) {
+            } else if (intChoice.equals("7")) {
                 scanner.close();
                 System.out.println("You have left the program");
                 break;
@@ -47,7 +46,7 @@ public class MenuView {
 
     private static boolean checkChoice(String choice) {
         if (choice.equals("1")) {
-            ViewService.showCatalog();
+            ViewService.showAllCatalog();
             return true;
         } else if (choice.equals("2")) {
             Scanner scanner = new Scanner(System.in);

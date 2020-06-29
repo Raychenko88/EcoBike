@@ -2,16 +2,13 @@ package com.ecobike.model;
 
 import lombok.*;
 
-import java.math.BigDecimal;
-
 @Setter
 @Getter
 @AllArgsConstructor
 @NoArgsConstructor
 @EqualsAndHashCode
-public class Speedelec {
+public class Speedelec extends DomainObject{
 
-//    public Integer id;
     public String brand;
     public Integer maximumSpeed;
     public Integer weight;
@@ -19,4 +16,11 @@ public class Speedelec {
     public Integer batteryCapacity;
     public String color;
     public Integer price;
+
+    @Override
+    public String toString() {
+        return String.format("%s with %d mAh battery and %s head/tail light.\n" +
+                "Price: %d euros.", brand, batteryCapacity, lightsAtFrontAndBack?"":"no", price);
+
+    }
 }

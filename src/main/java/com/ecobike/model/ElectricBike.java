@@ -2,16 +2,13 @@ package com.ecobike.model;
 
 import lombok.*;
 
-import java.math.BigDecimal;
-
 @Setter
 @Getter
 @AllArgsConstructor
 @NoArgsConstructor
 @EqualsAndHashCode
-public class ElectricBike {
+public class ElectricBike extends DomainObject{
 
-//    public Integer id;
     public String brand;
     public Integer maximumSpeed;
     public Integer weight;

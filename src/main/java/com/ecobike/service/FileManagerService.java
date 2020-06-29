@@ -4,41 +4,31 @@ import com.ecobike.model.ElectricBike;
 import com.ecobike.model.FoldingBike;
 import com.ecobike.model.Speedelec;
 import com.ecobike.repository.CollectionBike;
-import com.sun.deploy.util.StringUtils;
 import lombok.EqualsAndHashCode;
 
 import java.io.*;
-import java.math.BigDecimal;
-import java.net.URL;
 import java.net.URLDecoder;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 import java.util.Set;
 
 @EqualsAndHashCode
-public class FileManagerService extends Thread {
+public class FileManagerService {
 
-    private static String fileName = "EcoBike.txt";
+    private static final String DELIMETER = ";";
 
-    @Override
-    public void run() {
-        addAllCollections(fileName);
-    }
 
     public static void addAllCollections(String fileName) {
         if (checkPathAndFile(fileName)) {
-            FileManagerService.getDataFromFile(fileName);
-            FileManagerService.addToCollectionFoldingBike(FileManagerService.getDataFromFile(fileName));
-            FileManagerService.addToCollectionSpeedelec(FileManagerService.getDataFromFile(fileName));
-            FileManagerService.addToCollectionElectricBike(FileManagerService.getDataFromFile(fileName));
+            FileManagerService.fillCollectionsFromFile(fileName);
+        }else {
+            System.out.println("Check data fail");
         }
-        System.out.println("Check data fail");
     }
 
     public static boolean checkPathAndFile(String fileName) {
         File isFile = new File(fileName);
-        return isFile.exists() != false;
+        return isFile.exists();
     }
 
     public static void writeFile(String fileName) {
@@ -52,8 +42,7 @@ public class FileManagerService extends Thread {
         scanner.close();
     }
 
-    public static synchronized List<Object> getDataFromFile(String fileName) {
-        List<Object> items = new ArrayList<>();
+    public static synchronized void fillCollectionsFromFile(String fileName) {
 
         try {
             FileExtractor fileExtractor = new FileExtractor();
@@ -63,15 +52,21 @@ public class FileManagerService extends Thread {
             BufferedReader bufferedReader = new BufferedReader(fileReader);
             String temp;
             while ((temp = bufferedReader.readLine()) != null) {
-                items.add(temp);
+
+                if (temp.startsWith("SPEEDELEC")) {
+                    addToCollectionSpeedelec(temp);
+                } else if (temp.startsWith("E-BIKE")) {
+                    addToCollectionElectricBike(temp);
+                } else if (temp.startsWith("FOLDING")) {
+                    addToCollectionFoldingBike(temp);
+                } else {
+                    System.out.println("Data was not extracted: " + temp);
+                }
             }
-            addToCollectionSpeedelec(items);
-
-
         } catch (IOException e) {
             e.printStackTrace();
         }
-        return items;
+        return;
     }
 
     private static String decode(String path) {
@@ -83,55 +78,34 @@ public class FileManagerService extends Thread {
         return "";
     }
 
-    public static synchronized Set<Speedelec> addToCollectionSpeedelec(List<Object> items) {
-        String[] subStr;
-        for (Object item : items) {
-            String str = item.toString();
-            String delimeter = ";";
-            if (item.toString().startsWith("SPEEDELEC")) {
-                subStr = str.split(delimeter);
-                Speedelec speedelec = new Speedelec();
-                speedelec.setBrand(subStr[0]);
-                speedelec.setMaximumSpeed(Integer.parseInt(subStr[1].trim()));
-                speedelec.setWeight(Integer.parseInt(subStr[2].trim()));
-                speedelec.setLightsAtFrontAndBack(Boolean.parseBoolean(subStr[3].trim()));
-                speedelec.setBatteryCapacity(Integer.parseInt(subStr[4].trim()));
-                speedelec.setColor(subStr[5].trim());
-                speedelec.setPrice(Integer.parseInt(subStr[6].trim()));
-                CollectionBike.speedelecs.add(speedelec);
-            }
-        }
-        return CollectionBike.speedelecs;
+    public static synchronized void addToCollectionSpeedelec(String item) {
+        String[] subStr = item.split(DELIMETER);
+        Speedelec speedelec = new Speedelec();
+        speedelec.setBrand(subStr[0]);
+        speedelec.setMaximumSpeed(Integer.parseInt(subStr[1].trim()));
+        speedelec.setWeight(Integer.parseInt(subStr[2].trim()));
+        speedelec.setLightsAtFrontAndBack(Boolean.parseBoolean(subStr[3].trim()));
+        speedelec.setBatteryCapacity(Integer.parseInt(subStr[4].trim()));
+        speedelec.setColor(subStr[5].trim());
+        speedelec.setPrice(Integer.parseInt(subStr[6].trim()));
+        CollectionBike.speedelecs.add(speedelec);
     }
 
-    public static synchronized Set<ElectricBike> addToCollectionElectricBike(List<Object> items) {
-        String[] subStr;
-        for (Object item : items) {
-            String str = item.toString();
-            String delimeter = ";";
-            if (item.toString().startsWith("E-BIKE")) {
-                subStr = str.split(delimeter);
-                ElectricBike electricBike = new ElectricBike();
-                electricBike.setBrand(subStr[0]);
-                electricBike.setMaximumSpeed(Integer.parseInt(subStr[1].trim()));
-                electricBike.setWeight(Integer.parseInt(subStr[2].trim()));
-                electricBike.setLightsAtFrontAndBack(Boolean.parseBoolean(subStr[3].trim()));
-                electricBike.setBatteryCapacity(Integer.parseInt(subStr[4].trim()));
-                electricBike.setColor(subStr[5].trim());
-                electricBike.setPrice(Integer.parseInt(subStr[6].trim()));
-                CollectionBike.electricBikes.add(electricBike);
-            }
-        }
-        return CollectionBike.electricBikes;
+    public static synchronized void addToCollectionElectricBike(String item) {
+        String[] subStr = item.split(DELIMETER);
+        ElectricBike electricBike = new ElectricBike();
+        electricBike.setBrand(subStr[0]);
+        electricBike.setMaximumSpeed(Integer.parseInt(subStr[1].trim()));
+        electricBike.setWeight(Integer.parseInt(subStr[2].trim()));
+        electricBike.setLightsAtFrontAndBack(Boolean.parseBoolean(subStr[3].trim()));
+        electricBike.setBatteryCapacity(Integer.parseInt(subStr[4].trim()));
+        electricBike.setColor(subStr[5].trim());
+        electricBike.setPrice(Integer.parseInt(subStr[6].trim()));
+        CollectionBike.electricBikes.add(electricBike);
     }
 
-    public static synchronized Set<FoldingBike> addToCollectionFoldingBike(List<Object> items) {
-        String[] subStr;
-        for (Object item : items) {
-            String str = item.toString();
-            String delimeter = ";";
-            if (item.toString().startsWith("FOLDING")) {
-                subStr = str.split(delimeter);
+    public static synchronized void addToCollectionFoldingBike(String item) {
+                String[]  subStr = item.split(DELIMETER);
                 FoldingBike foldingBike = new FoldingBike();
                 foldingBike.setBrand(subStr[0]);
                 foldingBike.setWheelSize(Integer.parseInt(subStr[1].trim()));
@@ -141,9 +115,6 @@ public class FileManagerService extends Thread {
                 foldingBike.setColor(subStr[5].trim());
                 foldingBike.setPrice(Integer.parseInt(subStr[6].trim()));
                 CollectionBike.foldingBikes.add(foldingBike);
-            }
-        }
-        return CollectionBike.foldingBikes;
     }
 
 }
