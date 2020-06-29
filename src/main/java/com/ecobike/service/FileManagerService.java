@@ -17,7 +17,7 @@ import java.util.Scanner;
 import java.util.Set;
 
 @EqualsAndHashCode
-public class FileManagerService extends Thread{
+public class FileManagerService extends Thread {
 
     private static String fileName = "EcoBike.txt";
 
@@ -46,13 +46,13 @@ public class FileManagerService extends Thread{
         Scanner scanner = new Scanner(System.in);
         try (FileWriter writer = new FileWriter(file, true)) {
             writer.write(String.valueOf(scanner.nextLine()));
-            scanner.close();
         } catch (IOException e) {
             e.printStackTrace();
         }
+        scanner.close();
     }
 
-    public static synchronized  List<Object> getDataFromFile(String fileName) {
+    public static synchronized List<Object> getDataFromFile(String fileName) {
         List<Object> items = new ArrayList<>();
 
         try {
@@ -83,7 +83,7 @@ public class FileManagerService extends Thread{
         return "";
     }
 
-    public static synchronized  Set<Speedelec> addToCollectionSpeedelec(List<Object> items) {
+    public static synchronized Set<Speedelec> addToCollectionSpeedelec(List<Object> items) {
         String[] subStr;
         for (Object item : items) {
             String str = item.toString();
@@ -104,7 +104,7 @@ public class FileManagerService extends Thread{
         return CollectionBike.speedelecs;
     }
 
-    public static synchronized  Set<ElectricBike> addToCollectionElectricBike(List<Object> items) {
+    public static synchronized Set<ElectricBike> addToCollectionElectricBike(List<Object> items) {
         String[] subStr;
         for (Object item : items) {
             String str = item.toString();
@@ -125,7 +125,7 @@ public class FileManagerService extends Thread{
         return CollectionBike.electricBikes;
     }
 
-    public static synchronized  Set<FoldingBike> addToCollectionFoldingBike(List<Object> items) {
+    public static synchronized Set<FoldingBike> addToCollectionFoldingBike(List<Object> items) {
         String[] subStr;
         for (Object item : items) {
             String str = item.toString();

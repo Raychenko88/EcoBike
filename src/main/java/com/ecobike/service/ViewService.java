@@ -14,7 +14,7 @@ public class ViewService {
 
     private static String fileName = "EcoBike.txt";
 
-    public static void addAllCollectionsThread(){
+    private static void addAllCollectionsThread() {
         FileManagerService fileManagerService = new FileManagerService();
         fileManagerService.start();
     }
@@ -42,20 +42,20 @@ public class ViewService {
 //            System.out.println("Price: " + s.getPrice() + " euros.");
 //        }
 //    }
-        addAllCollectionsThread();
+//        addAllCollectionsThread();
         List<Object> list = FileManagerService.getDataFromFile(fileName);
         List<Speedelec> s = new ArrayList<>(CollectionBike.speedelecs);
         List<ElectricBike> e = new ArrayList<>(CollectionBike.electricBikes);
         List<FoldingBike> f = new ArrayList<>(CollectionBike.foldingBikes);
         for (int i = 0; i < list.size(); i++) {
-            String[] subStr;
+//            String[] subStr;
             String str = list.get(i).toString();
-            String delimeter = ";";
+//            String delimeter = ";";
             if (str.startsWith("SPEEDELEC")) {
                 if (iteratorS < s.size()) {
                     String light = s.get(iteratorS).lightsAtFrontAndBack ? "head/tail light." : "no head/tail light.";
                     System.out.println(s.get(iteratorS).getBrand() + " with " + s.get(iteratorS).getBatteryCapacity() + " mAh battery and " + light);
-            System.out.println("Price: " + s.get(iteratorS).getPrice() + " euros.");
+                    System.out.println("Price: " + s.get(iteratorS).getPrice() + " euros.");
                     iteratorS++;
                 }
             } else if (str.startsWith("E-BIKE")) {
@@ -76,8 +76,31 @@ public class ViewService {
         }
     }
 
-    public static void AddNewFoldingBike(String optopnsBike) {
-
+    public static boolean AddNewFoldingBike(String optionsBike) {
+        String[] subStr;
+        String str = optionsBike;
+        String delimeter = ";";
+        subStr = str.split(delimeter);
+        if (subStr[0] == "FOLDING" &&
+                Integer.parseInt(subStr[1]) > 0 &&
+                Integer.parseInt(subStr[2]) > 0 &&
+                Integer.parseInt(subStr[3]) > 0 &&
+                Boolean.parseBoolean(subStr[4]) == true || false &&
+                !(subStr[5]).isEmpty() &&
+                Integer.parseInt(subStr[6]) > 0) {
+            FoldingBike foldingBike = new FoldingBike();
+            foldingBike.setBrand(subStr[0]);
+            foldingBike.setWheelSize(Integer.parseInt(subStr[1].trim()));
+            foldingBike.setNumberOfSpeeds(Integer.parseInt(subStr[2].trim()));
+            foldingBike.setWeight(Integer.parseInt(subStr[3].trim()));
+            foldingBike.setLightsAtFrontAndBack(Boolean.parseBoolean(subStr[4].trim()));
+            foldingBike.setColor(subStr[5].trim());
+            foldingBike.setPrice(Integer.parseInt(subStr[6].trim()));
+            CollectionBike.foldingBikes.add(foldingBike);
+            FileManagerService.writeFile(fileName);
+            return true;
+        }
+        return false;
     }
 
     public static void AddNewSpeedelec() {
