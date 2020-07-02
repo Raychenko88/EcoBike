@@ -16,4 +16,10 @@ public class FoldingBike extends DomainObject{
     public boolean lightsAtFrontAndBack;
     public String color;
     public Integer price;
+
+    @Override
+    public String toString() {
+        return String.format("%s with %d gear(s) and %s head/tail light.\n" +
+                "Price: %d euros.", brand, numberOfSpeeds, lightsAtFrontAndBack?"":"no", price);
+    }
 }

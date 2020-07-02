@@ -8,6 +8,7 @@ import lombok.EqualsAndHashCode;
 
 import java.io.*;
 import java.net.URLDecoder;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 import java.util.Set;
@@ -21,7 +22,7 @@ public class FileManagerService {
     public static void addAllCollections(String fileName) {
         if (checkPathAndFile(fileName)) {
             FileManagerService.fillCollectionsFromFile(fileName);
-        }else {
+        } else {
             System.out.println("Check data fail");
         }
     }
@@ -31,22 +32,25 @@ public class FileManagerService {
         return isFile.exists();
     }
 
-    public static void writeFile(String fileName) {
+    public static boolean writeFile(String fileName) {
         File file = new File(fileName);
         Scanner scanner = new Scanner(System.in);
         try (FileWriter writer = new FileWriter(file, true)) {
             writer.write(String.valueOf(scanner.nextLine()));
+            scanner.close();
+            return true;
         } catch (IOException e) {
             e.printStackTrace();
         }
         scanner.close();
+        return false;
     }
 
     public static synchronized void fillCollectionsFromFile(String fileName) {
 
         try {
             FileExtractor fileExtractor = new FileExtractor();
-
+//TODO сделать проверку на наличие файла
             File file = fileExtractor.getFileFromResources(fileName);
             FileReader fileReader = new FileReader(decode(file.getAbsolutePath()));
             BufferedReader bufferedReader = new BufferedReader(fileReader);
@@ -105,16 +109,16 @@ public class FileManagerService {
     }
 
     public static synchronized void addToCollectionFoldingBike(String item) {
-                String[]  subStr = item.split(DELIMETER);
-                FoldingBike foldingBike = new FoldingBike();
-                foldingBike.setBrand(subStr[0]);
-                foldingBike.setWheelSize(Integer.parseInt(subStr[1].trim()));
-                foldingBike.setNumberOfSpeeds(Integer.parseInt(subStr[2].trim()));
-                foldingBike.setWeight(Integer.parseInt(subStr[3].trim()));
-                foldingBike.setLightsAtFrontAndBack(Boolean.parseBoolean(subStr[4].trim()));
-                foldingBike.setColor(subStr[5].trim());
-                foldingBike.setPrice(Integer.parseInt(subStr[6].trim()));
-                CollectionBike.foldingBikes.add(foldingBike);
+        String[] subStr = item.split(DELIMETER);
+        FoldingBike foldingBike = new FoldingBike();
+        foldingBike.setBrand(subStr[0]);
+        foldingBike.setWheelSize(Integer.parseInt(subStr[1].trim()));
+        foldingBike.setNumberOfSpeeds(Integer.parseInt(subStr[2].trim()));
+        foldingBike.setWeight(Integer.parseInt(subStr[3].trim()));
+        foldingBike.setLightsAtFrontAndBack(Boolean.parseBoolean(subStr[4].trim()));
+        foldingBike.setColor(subStr[5].trim());
+        foldingBike.setPrice(Integer.parseInt(subStr[6].trim()));
+        CollectionBike.foldingBikes.add(foldingBike);
     }
 
 }

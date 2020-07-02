@@ -16,4 +16,10 @@ public class ElectricBike extends DomainObject{
     public Integer batteryCapacity;
     public String color;
     public Integer price;
+
+    @Override
+    public String toString() {
+        return String.format("%s with %d mAh battery and %s head/tail light.\n" +
+                "Price: %d euros.", brand, batteryCapacity, lightsAtFrontAndBack?"":"no", price);
+    }
 }

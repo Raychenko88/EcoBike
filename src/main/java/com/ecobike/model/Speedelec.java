@@ -21,6 +21,5 @@ public class Speedelec extends DomainObject{
     public String toString() {
         return String.format("%s with %d mAh battery and %s head/tail light.\n" +
                 "Price: %d euros.", brand, batteryCapacity, lightsAtFrontAndBack?"":"no", price);
-
     }
 }
