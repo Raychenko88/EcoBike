@@ -13,4 +13,7 @@ public class CollectionBike {
     public static Set<DomainObject> foldingBikes = Collections.synchronizedSet(new HashSet<>());
     public static Set<DomainObject> electricBikes = Collections.synchronizedSet(new HashSet<>());
     public static Set<DomainObject> speedelecs = Collections.synchronizedSet(new HashSet<>());
+
+    public static Set<DomainObject> filtered = Collections.synchronizedSet(new HashSet<>());
+
 }

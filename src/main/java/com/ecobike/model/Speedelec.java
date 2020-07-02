@@ -9,17 +9,12 @@ import lombok.*;
 @EqualsAndHashCode
 public class Speedelec extends DomainObject{
 
-    public String brand;
-    public Integer maximumSpeed;
-    public Integer weight;
-    public boolean lightsAtFrontAndBack;
-    public Integer batteryCapacity;
-    public String color;
-    public Integer price;
+    private Integer maximumSpeed;
+    private Integer batteryCapacity;
 
     @Override
     public String toString() {
         return String.format("%s with %d mAh battery and %s head/tail light.\n" +
-                "Price: %d euros.", brand, batteryCapacity, lightsAtFrontAndBack?"":"no", price);
+                "Price: %d euros.", getBrand(), getBatteryCapacity(), getLightsAtFrontAndBack()?"":"no", getPrice());
     }
 }

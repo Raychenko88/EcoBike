@@ -1,17 +1,12 @@
 package com.ecobike.service;
 
 import com.ecobike.EcoBikeApplication;
-import com.ecobike.model.DomainObject;
-import com.ecobike.model.ElectricBike;
-import com.ecobike.model.FoldingBike;
-import com.ecobike.model.Speedelec;
+import com.ecobike.model.*;
 import com.ecobike.repository.CollectionBike;
 import lombok.EqualsAndHashCode;
-import sun.reflect.generics.tree.Tree;
 
 import java.util.*;
 import java.util.stream.Collectors;
-import java.util.stream.Stream;
 
 @EqualsAndHashCode
 public class ViewService {
@@ -106,23 +101,80 @@ public class ViewService {
         return false;
     }
 
-    public static Set<DomainObject> showFindTheFirstItemOfBrand(Map<String,String> filter) {
-        filter.put("brand", "SPEEDELEC")
+    public static Set<DomainObject> showFindTheFirstItemOfBrand(Map<FilterName,String> filter) {
+        CollectionBike.filtered.clear();
         TreeSet<DomainObject> treeSet = new TreeSet<>();
-        treeSet.addAll(CollectionBike.speedelecs);
+        treeSet.addAll(getFilteredeSpeedelecs(CollectionBike.speedelecs, filter));
         treeSet.addAll(CollectionBike.electricBikes);
         treeSet.addAll(CollectionBike.foldingBikes);
-        Map<String, String> map = new HashMap<>();
-        String toFilter = optionsBike.trim();
-//        Map<String, String> map = new HashMap<>();
-        if (toFilter.startsWith("SPEEDELEC")){
-           for (DomainObject bike : treeSet){
-//               if ()
-           }
-
-        }
-        return null;
+        CollectionBike.filtered.addAll(treeSet);
+        return treeSet;
     }
+
+    private static Set<DomainObject> getFilteredeSpeedelecs(Set<DomainObject> speedelecs, Map<FilterName, String> filter) {
+        return speedelecs
+                .stream()
+                .filter(it -> isSpeedelecAcceptable(it, filter))
+                .collect(Collectors.toSet());
+    }
+
+    private static boolean isSpeedelecAcceptable(DomainObject domainObject, Map<FilterName, String> filter) {
+        Speedelec speedelec = (Speedelec) domainObject;
+        if (speedelec.getBrand().equals(filter.get(FilterName.BRAND))){
+            if (filter.get(FilterName.WEIGHT) != null){
+                if (speedelec.getWeight().equals(Integer.valueOf(filter.get(FilterName.WEIGHT)))){
+                    if (filter.get(FilterName.LIGHTS) != null){
+                        if (speedelec.getLightsAtFrontAndBack().equals(Boolean.valueOf(filter.get(FilterName.LIGHTS)))){
+                            if (filter.get(FilterName.COLOR) != null){
+                                if (speedelec.getColor().equals(filter.get(FilterName.COLOR))){
+                                    if (filter.get(FilterName.PRICE) != null){
+                                        if (speedelec.getPrice().equals(Integer.valueOf(filter.get(FilterName.PRICE)))){
+                                            if (filter.get(FilterName.MAXIMUM_SPEED) != null){
+                                                if (speedelec.getMaximumSpeed().equals(Integer.valueOf(filter.get(FilterName.MAXIMUM_SPEED)))){
+                                                    if (filter.get(FilterName.BATTERY) != null){
+                                                        if (speedelec.getBatteryCapacity().equals(Integer.valueOf(filter.get(FilterName.BATTERY)))){
+                                                            return true;
+                                                        }else {
+                                                            return false;
+                                                        }
+                                                    }else {
+                                                        return true;
+                                                    }
+                                                }else {
+                                                    return false;
+                                                }
+                                            }else {
+                                                return true;
+                                            }
+                                        }else {
+                                            return false;
+                                        }
+                                    }else {
+                                        return true;
+                                    }
+                                }else {
+                                    return false;
+                                }
+                            }else {
+                                return true;
+                            }
+                        }else {
+                            return false;
+                        }
+                    }else {
+                        return true;
+                    }
+                }else {
+                    return false;
+                }
+            }else {
+                return true;
+            }
+        }else {
+            return false;
+        }
+    }
+
 
 
     public static boolean writeToFile() {

@@ -1,5 +1,6 @@
 package com.ecobike.service;
 
+import com.ecobike.model.DomainObject;
 import com.ecobike.model.ElectricBike;
 import com.ecobike.model.FoldingBike;
 import com.ecobike.model.Speedelec;
@@ -32,18 +33,18 @@ public class FileManagerService {
         return isFile.exists();
     }
 
-    public static boolean writeFile(String fileName) {
-        File file = new File(fileName);
-        Scanner scanner = new Scanner(System.in);
-        try (FileWriter writer = new FileWriter(file, true)) {
-            writer.write(String.valueOf(scanner.nextLine()));
-            scanner.close();
+    public static boolean writeFile(String fileName, Set<DomainObject> set) {
+
+        try (FileWriter writer = new FileWriter(fileName)) {
+           for (DomainObject bike : set){
+               writer.write(bike.toString());
+           }
+           writer.flush();
             return true;
         } catch (IOException e) {
             e.printStackTrace();
+            return false;
         }
-        scanner.close();
-        return false;
     }
 
     public static synchronized void fillCollectionsFromFile(String fileName) {
