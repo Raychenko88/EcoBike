@@ -101,14 +101,143 @@ public class ViewService {
         return false;
     }
 
-    public static Set<DomainObject> showFindTheFirstItemOfBrand(Map<FilterName,String> filter) {
+    public static TreeSet<DomainObject> showFindTheFirstItemOfBrand(Map<FilterName, String> filter) {
         CollectionBike.filtered.clear();
         TreeSet<DomainObject> treeSet = new TreeSet<>();
         treeSet.addAll(getFilteredeSpeedelecs(CollectionBike.speedelecs, filter));
-        treeSet.addAll(CollectionBike.electricBikes);
-        treeSet.addAll(CollectionBike.foldingBikes);
+        treeSet.addAll(getFilteredeElectroBikes(CollectionBike.electricBikes, filter));
+        treeSet.addAll(getFilteredeFoldingBike(CollectionBike.foldingBikes, filter));
         CollectionBike.filtered.addAll(treeSet);
         return treeSet;
+    }
+
+    private static Set<DomainObject> getFilteredeFoldingBike(Set<DomainObject> foldingBikes, Map<FilterName, String> filter) {
+        return foldingBikes
+                .stream()
+                .filter(it -> isFoldingBikeAcceptable(it, filter))
+                .collect(Collectors.toSet());
+    }
+
+    private static boolean isFoldingBikeAcceptable(DomainObject domainObject, Map<FilterName, String> filter) {
+        FoldingBike foldingBike = (FoldingBike) domainObject;
+        if (foldingBike.getBrand().equals(filter.get(FilterName.BRAND))) {
+            if (filter.get(FilterName.WEIGHT) != null) {
+                if (foldingBike.getWeight().equals(Integer.valueOf(filter.get(FilterName.WEIGHT)))) {
+                    if (filter.get(FilterName.LIGHTS) != null) {
+                        if (foldingBike.getLightsAtFrontAndBack().equals(Boolean.valueOf(filter.get(FilterName.LIGHTS)))) {
+                            if (filter.get(FilterName.COLOR) != null) {
+                                if (foldingBike.getColor().equals(filter.get(FilterName.COLOR))) {
+                                    if (filter.get(FilterName.PRICE) != null) {
+                                        if (foldingBike.getPrice().equals(Integer.valueOf(filter.get(FilterName.PRICE)))) {
+                                            if (filter.get(FilterName.WHEEL_SIZE) != null) {
+                                                if (foldingBike.getWheelSize().equals(Integer.valueOf(filter.get(FilterName.WHEEL_SIZE)))) {
+                                                    if (filter.get(FilterName.NUMBER_SPEEDS) != null) {
+                                                        if (foldingBike.getNumberOfSpeeds().equals(Integer.valueOf(filter.get(FilterName.NUMBER_SPEEDS)))) {
+                                                            return true;
+                                                        } else {
+                                                            return false;
+                                                        }
+                                                    } else {
+                                                        return true;
+                                                    }
+                                                } else {
+                                                    return false;
+                                                }
+                                            } else {
+                                                return true;
+                                            }
+                                        } else {
+                                            return false;
+                                        }
+                                    } else {
+                                        return true;
+                                    }
+                                } else {
+                                    return false;
+                                }
+                            } else {
+                                return true;
+                            }
+                        } else {
+                            return false;
+                        }
+                    } else {
+                        return true;
+                    }
+                } else {
+                    return false;
+                }
+            } else {
+                return true;
+            }
+        } else {
+            return false;
+        }
+    }
+
+    private static Set<DomainObject> getFilteredeElectroBikes(Set<DomainObject> electricBikes, Map<FilterName, String> filter) {
+        return electricBikes
+                .stream()
+                .filter(it -> isElectroBikeAcceptable(it, filter))
+                .collect(Collectors.toSet());
+    }
+
+    private static boolean isElectroBikeAcceptable(DomainObject domainObject, Map<FilterName, String> filter) {
+        ElectricBike electricBike = (ElectricBike) domainObject;
+        if (electricBike.getBrand().equals(filter.get(FilterName.BRAND))) {
+            if (filter.get(FilterName.WEIGHT) != null) {
+                if (electricBike.getWeight().equals(Integer.valueOf(filter.get(FilterName.WEIGHT)))) {
+                    if (filter.get(FilterName.LIGHTS) != null) {
+                        if (electricBike.getLightsAtFrontAndBack().equals(Boolean.valueOf(filter.get(FilterName.LIGHTS)))) {
+                            if (filter.get(FilterName.COLOR) != null) {
+                                if (electricBike.getColor().equals(filter.get(FilterName.COLOR))) {
+                                    if (filter.get(FilterName.PRICE) != null) {
+                                        if (electricBike.getPrice().equals(Integer.valueOf(filter.get(FilterName.PRICE)))) {
+                                            if (filter.get(FilterName.MAXIMUM_SPEED) != null) {
+                                                if (electricBike.getMaximumSpeed().equals(Integer.valueOf(filter.get(FilterName.MAXIMUM_SPEED)))) {
+                                                    if (filter.get(FilterName.BATTERY) != null) {
+                                                        if (electricBike.getBatteryCapacity().equals(Integer.valueOf(filter.get(FilterName.BATTERY)))) {
+                                                            return true;
+                                                        } else {
+                                                            return false;
+                                                        }
+                                                    } else {
+                                                        return true;
+                                                    }
+                                                } else {
+                                                    return false;
+                                                }
+                                            } else {
+                                                return true;
+                                            }
+                                        } else {
+                                            return false;
+                                        }
+                                    } else {
+                                        return true;
+                                    }
+                                } else {
+                                    return false;
+                                }
+                            } else {
+                                return true;
+                            }
+                        } else {
+                            return false;
+                        }
+                    } else {
+                        return true;
+                    }
+                } else {
+                    return false;
+                }
+            } else {
+                return true;
+            }
+        } else {
+            return false;
+        }
+
     }
 
     private static Set<DomainObject> getFilteredeSpeedelecs(Set<DomainObject> speedelecs, Map<FilterName, String> filter) {
@@ -120,66 +249,65 @@ public class ViewService {
 
     private static boolean isSpeedelecAcceptable(DomainObject domainObject, Map<FilterName, String> filter) {
         Speedelec speedelec = (Speedelec) domainObject;
-        if (speedelec.getBrand().equals(filter.get(FilterName.BRAND))){
-            if (filter.get(FilterName.WEIGHT) != null){
-                if (speedelec.getWeight().equals(Integer.valueOf(filter.get(FilterName.WEIGHT)))){
-                    if (filter.get(FilterName.LIGHTS) != null){
-                        if (speedelec.getLightsAtFrontAndBack().equals(Boolean.valueOf(filter.get(FilterName.LIGHTS)))){
-                            if (filter.get(FilterName.COLOR) != null){
-                                if (speedelec.getColor().equals(filter.get(FilterName.COLOR))){
-                                    if (filter.get(FilterName.PRICE) != null){
-                                        if (speedelec.getPrice().equals(Integer.valueOf(filter.get(FilterName.PRICE)))){
-                                            if (filter.get(FilterName.MAXIMUM_SPEED) != null){
-                                                if (speedelec.getMaximumSpeed().equals(Integer.valueOf(filter.get(FilterName.MAXIMUM_SPEED)))){
-                                                    if (filter.get(FilterName.BATTERY) != null){
-                                                        if (speedelec.getBatteryCapacity().equals(Integer.valueOf(filter.get(FilterName.BATTERY)))){
+        if (speedelec.getBrand().equals(filter.get(FilterName.BRAND))) {
+            if (filter.get(FilterName.WEIGHT) != null) {
+                if (speedelec.getWeight().equals(Integer.valueOf(filter.get(FilterName.WEIGHT)))) {
+                    if (filter.get(FilterName.LIGHTS) != null) {
+                        if (speedelec.getLightsAtFrontAndBack().equals(Boolean.valueOf(filter.get(FilterName.LIGHTS)))) {
+                            if (filter.get(FilterName.COLOR) != null) {
+                                if (speedelec.getColor().equals(filter.get(FilterName.COLOR))) {
+                                    if (filter.get(FilterName.PRICE) != null) {
+                                        if (speedelec.getPrice().equals(Integer.valueOf(filter.get(FilterName.PRICE)))) {
+                                            if (filter.get(FilterName.MAXIMUM_SPEED) != null) {
+                                                if (speedelec.getMaximumSpeed().equals(Integer.valueOf(filter.get(FilterName.MAXIMUM_SPEED)))) {
+                                                    if (filter.get(FilterName.BATTERY) != null) {
+                                                        if (speedelec.getBatteryCapacity().equals(Integer.valueOf(filter.get(FilterName.BATTERY)))) {
                                                             return true;
-                                                        }else {
+                                                        } else {
                                                             return false;
                                                         }
-                                                    }else {
+                                                    } else {
                                                         return true;
                                                     }
-                                                }else {
+                                                } else {
                                                     return false;
                                                 }
-                                            }else {
+                                            } else {
                                                 return true;
                                             }
-                                        }else {
+                                        } else {
                                             return false;
                                         }
-                                    }else {
+                                    } else {
                                         return true;
                                     }
-                                }else {
+                                } else {
                                     return false;
                                 }
-                            }else {
+                            } else {
                                 return true;
                             }
-                        }else {
+                        } else {
                             return false;
                         }
-                    }else {
+                    } else {
                         return true;
                     }
-                }else {
+                } else {
                     return false;
                 }
-            }else {
+            } else {
                 return true;
             }
-        }else {
+        } else {
             return false;
         }
     }
 
 
-
-    public static boolean writeToFile() {
-        if (FileManagerService.checkPathAndFile(EcoBikeApplication.FILE_NAME)){
-            if (FileManagerService.writeFile(EcoBikeApplication.FILE_NAME)){
+    public static boolean writeToFile(String fileName, Set<DomainObject> set) {
+        if (FileManagerService.checkPathAndFile(fileName)) {
+            if (FileManagerService.writeFile(fileName, set)) {
                 return true;
             }
         }
@@ -188,10 +316,5 @@ public class ViewService {
 
     public static void stopTheProgram() {
 
-    }
-
-    public static List<Object> checkAdd(String str) {
-
-        return null;
     }
 }
