@@ -5,13 +5,13 @@ import com.ecobike.model.ElectricBike;
 import com.ecobike.repository.CollectionBike;
 import com.ecobike.service.FileManagerService;
 import com.ecobike.service.ViewService;
+import com.ecobike.view.MenuView;
 
 import java.io.IOException;
 import java.util.TreeSet;
 
 public class EcoBikeApplication {
 
-    //    private static String filePath = System.getProperty("user.dir") + System.getProperty("file.separator") + "ecobike";
     public static final String FILE_NAME = "EcoBike.txt";
 
     public static void main(String[] args) throws IOException {
@@ -19,8 +19,9 @@ public class EcoBikeApplication {
 //        ViewService.showAllCatalog();
 //        ViewService viewService = new ViewService();
 //        viewService.showAllCatalog();
+        MenuView menuView = new MenuView();
+        menuView.mainMenu();
 
-       ViewService.showFindTheFirstItemOfBrand("SPEEDELEC");
 
 
     }

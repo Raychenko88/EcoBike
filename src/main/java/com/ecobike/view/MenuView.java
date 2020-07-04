@@ -24,59 +24,59 @@ public class MenuView {
             "7 – Stop the program";
 
     public static void mainMenu() {
-        System.out.println(showChoice);
-        while (scanner.hasNextLine()) {
-            System.out.println("Enter the number of the menu item");
-            String intChoice = scanner.nextLine();
-            if (intChoice.equals("1")) {
-                if (checkChoice(intChoice)) {
-                    System.out.println("Press enter to get to the menu.");
-                    scanner.next();
-                } else {
-                    System.out.println("Unable to show directory");
-                }
-                mainMenu();
-            } else if (intChoice.equals("2") || intChoice.equals("3") || intChoice.equals("4")) {
-                if (checkChoice(intChoice)) {
-                    System.out.println("Press enter to get to the menu.");
-                    scanner.next();
-                    mainMenu();
-                } else if (!(checkChoice(intChoice))) {
-                    System.out.println("Failed to save this bike. Make sure you enter the correct data" + "\n" +
-                            "Enter the menu number again and then enter the data");
-                    scanner.next();
-                    mainMenu();
-                }
-            } else if (intChoice.equals("5")) {
-                if (checkChoice(intChoice)) {
-                    System.out.println("Press enter to get to the menu.");
-                    scanner.next();
-                    mainMenu();
-                } else {
-                    System.out.println("\n" +
-                            "No results were found for your request. Make sure the fields are filled in correctly." + "\n" +
-                            "Enter the menu number again and then enter the data");
-                    scanner.next();
-                    mainMenu();
-                }
+        try {
+            System.out.println(showChoice);
+            while (scanner.hasNextLine()) {
+                String intChoice = scanner.nextLine();
+                if (intChoice.equals("1")) {
+                    if (checkChoice(intChoice)) {
+                        System.out.println();
+                        mainMenu();
+                    } else {
+                        System.out.println("Unable to show directory");
+                        System.out.println();
+                        mainMenu();
+                    }
+                } else if (intChoice.equals("2") || intChoice.equals("3") || intChoice.equals("4")) {
+                    if (checkChoice(intChoice)) {
+                        System.out.println();
+                        mainMenu();
+                    } else if (!(checkChoice(intChoice))) {
+                        System.out.println("Failed to save this bike. Make sure you enter the correct data" + "\n");
+                        mainMenu();
+                    }
+                } else if (intChoice.equals("5")) {
+                    if (checkChoice(intChoice)) {
+                        System.out.println();
+                        mainMenu();
+                    } else {
+                        System.out.println("\n" +
+                                "No results were found for your request. Make sure the fields are filled in correctly." + "\n");
+                        System.out.println();
+                        mainMenu();
+                    }
 
-            } else if (intChoice.equals("6")) {
-                if (checkChoice(intChoice)) {
-                    System.out.println("Press enter to get to the menu.");
-                    scanner.next();
-                    mainMenu();
-                } else {
-                    System.out.println("Unfortunately, it was not possible to save the data to a file." +
-                            "Enter the menu number again and then enter the data");
-                    scanner.next();
-                    mainMenu();
-                }
+                } else if (intChoice.equals("6")) {
+                    if (checkChoice(intChoice)) {
+                        System.out.println("Press enter to get to the menu.");
+                        scanner.next();
+                        mainMenu();
+                    } else {
+                        System.out.println("Unfortunately, it was not possible to save the data to a file." +
+                                "Enter the menu number again and then enter the data");
+                        scanner.next();
+                        mainMenu();
+                    }
 
-            } else if (intChoice.equals("7")) {
-                scanner.close();
-                System.out.println("You have left the program");
-                break;
+                } else if (intChoice.equals("7")) {
+                    scanner.close();
+                    System.out.println("You have left the program");
+                    break;
+                }
             }
+        }catch (NoSuchElementException e){
+            System.out.println("\n" + "All data that needs to be filled in must be filled in manually, not ctr c + ctr v." + "\n");
+            mainMenu();
         }
 
     }

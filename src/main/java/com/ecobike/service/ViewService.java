@@ -29,12 +29,12 @@ public class ViewService {
         String delimeter = ";";
         subStr = str.split(delimeter);
         if (subStr[0].startsWith("FOLDING") &&   //startWith
-                Integer.parseInt(subStr[1]) > 0 &&
-                Integer.parseInt(subStr[2]) > 0 &&
-                Integer.parseInt(subStr[3]) > 0 &&
-                Boolean.parseBoolean(subStr[4]) == true || false &&
-                !(subStr[5]).isEmpty() &&
-                Integer.parseInt(subStr[6]) > 0) {
+                Integer.parseInt(subStr[1].trim()) > 0 &&
+                Integer.parseInt(subStr[2].trim()) > 0 &&
+                Integer.parseInt(subStr[3].trim()) > 0 &&
+                Boolean.parseBoolean(subStr[4].trim()) == true || false &&
+                !(subStr[5].trim()).isEmpty() &&
+                Integer.parseInt(subStr[6].trim()) > 0) {
             FoldingBike foldingBike = new FoldingBike();
             foldingBike.setBrand(subStr[0]);
             foldingBike.setWheelSize(Integer.parseInt(subStr[1].trim()));
@@ -55,12 +55,12 @@ public class ViewService {
         String delimeter = ";";
         subStr = str.split(delimeter);
         if (subStr[0].startsWith("SPEEDELEC") &&    //startWith
-                Integer.parseInt(subStr[1]) > 0 &&
-                Integer.parseInt(subStr[2]) > 0 &&
-                Boolean.parseBoolean(subStr[3]) == true || false &&
-                Integer.parseInt(subStr[4]) > 0 &&
-                !(subStr[5]).isEmpty() &&
-                Integer.parseInt(subStr[6]) > 0) {
+                Integer.parseInt(subStr[1].trim()) > 0 &&
+                Integer.parseInt(subStr[2].trim()) > 0 &&
+                Boolean.parseBoolean(subStr[3].trim()) == true || false &&
+                Integer.parseInt(subStr[4].trim()) > 0 &&
+                !(subStr[5].trim()).isEmpty() &&
+                Integer.parseInt(subStr[6].trim()) > 0) {
             Speedelec speedelec = new Speedelec();
             speedelec.setBrand(subStr[0]);
             speedelec.setMaximumSpeed(Integer.parseInt(subStr[1].trim()));
@@ -81,12 +81,12 @@ public class ViewService {
         String delimeter = ";";
         subStr = str.split(delimeter);
         if (subStr[0].startsWith("SPEEDELEC") &&    //startWith
-                Integer.parseInt(subStr[1]) > 0 &&
-                Integer.parseInt(subStr[2]) > 0 &&
-                Boolean.parseBoolean(subStr[3]) == true || false &&
-                Integer.parseInt(subStr[4]) > 0 &&
-                !(subStr[5]).isEmpty() &&
-                Integer.parseInt(subStr[6]) > 0) {
+                Integer.parseInt(subStr[1].trim()) > 0 &&
+                Integer.parseInt(subStr[2].trim()) > 0 &&
+                Boolean.parseBoolean(subStr[3].trim()) == true || false &&
+                Integer.parseInt(subStr[4].trim()) > 0 &&
+                !(subStr[5].trim()).isEmpty() &&
+                Integer.parseInt(subStr[6].trim()) > 0) {
             ElectricBike electricBike = new ElectricBike();
             electricBike.setBrand(subStr[0]);
             electricBike.setMaximumSpeed(Integer.parseInt(subStr[1].trim()));
