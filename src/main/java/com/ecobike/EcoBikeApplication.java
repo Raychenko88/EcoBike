@@ -22,7 +22,7 @@ public class EcoBikeApplication {
         MenuView menuView = new MenuView();
         menuView.mainMenu();
 
-        ViewService.showFindTheFirstItemOfBrand()
+
 
 
     }
