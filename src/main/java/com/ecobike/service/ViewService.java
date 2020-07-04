@@ -247,21 +247,23 @@ public class ViewService {
                 .collect(Collectors.toSet());
     }
 
+
+
     private static boolean isSpeedelecAcceptable(DomainObject domainObject, Map<FilterName, String> filter) {
         Speedelec speedelec = (Speedelec) domainObject;
         if (speedelec.getBrand().equals(filter.get(FilterName.BRAND))) {
-            if (filter.get(FilterName.WEIGHT) != null) {
-                if (speedelec.getWeight().equals(Integer.valueOf(filter.get(FilterName.WEIGHT)))) {
-                    if (filter.get(FilterName.LIGHTS) != null) {
-                        if (speedelec.getLightsAtFrontAndBack().equals(Boolean.valueOf(filter.get(FilterName.LIGHTS)))) {
-                            if (filter.get(FilterName.COLOR) != null) {
-                                if (speedelec.getColor().equals(filter.get(FilterName.COLOR))) {
-                                    if (filter.get(FilterName.PRICE) != null) {
-                                        if (speedelec.getPrice().equals(Integer.valueOf(filter.get(FilterName.PRICE)))) {
-                                            if (filter.get(FilterName.MAXIMUM_SPEED) != null) {
-                                                if (speedelec.getMaximumSpeed().equals(Integer.valueOf(filter.get(FilterName.MAXIMUM_SPEED)))) {
-                                                    if (filter.get(FilterName.BATTERY) != null) {
-                                                        if (speedelec.getBatteryCapacity().equals(Integer.valueOf(filter.get(FilterName.BATTERY)))) {
+            if (filter.get(FilterName.MAXIMUM_SPEED) != null) {
+                if (speedelec.getMaximumSpeed().equals(Integer.valueOf(filter.get(FilterName.MAXIMUM_SPEED)))) {
+                    if (filter.get(FilterName.WEIGHT) != null) {
+                        if (speedelec.getWeight().equals(Integer.valueOf(filter.get(FilterName.WEIGHT)))) {
+                            if (filter.get(FilterName.LIGHTS) != null) {
+                                if (speedelec.getLightsAtFrontAndBack().equals(Boolean.valueOf(filter.get(FilterName.LIGHTS)))) {
+                                    if (filter.get(FilterName.BATTERY) != null) {
+                                        if (speedelec.getBatteryCapacity().equals(Integer.valueOf(filter.get(FilterName.BATTERY)))) {
+                                            if (filter.get(FilterName.COLOR) != null) {
+                                                if (speedelec.getColor().equals(filter.get(FilterName.COLOR))) {
+                                                    if (filter.get(FilterName.PRICE) != null) {
+                                                        if (speedelec.getPrice().equals(Integer.valueOf(filter.get(FilterName.PRICE)))) {
                                                             return true;
                                                         } else {
                                                             return false;
