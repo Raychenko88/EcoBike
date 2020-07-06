@@ -3,15 +3,17 @@ package com.ecobike.model;
 import lombok.Getter;
 import lombok.Setter;
 
+import java.math.BigDecimal;
+
 @Setter
 @Getter
 public abstract class DomainObject implements Comparable{
 
     private String brand;
     private String color;
-    private Integer price;
+    private BigDecimal price;
     private Boolean lightsAtFrontAndBack;
-    private Integer weight;
+    private BigDecimal weight;
 
     @Override
     public int compareTo(Object o) {
@@ -38,4 +40,6 @@ public abstract class DomainObject implements Comparable{
            return cBrand;
         }
     }
+
+    public abstract String toStringToWrite();
 }

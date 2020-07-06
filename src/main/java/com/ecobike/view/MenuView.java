@@ -181,7 +181,7 @@ public class MenuView {
                 filterNameHashMap.put(FilterName.LIGHTS, subStr[3].trim());
                 filterNameHashMap.put(FilterName.BATTERY, subStr[4].trim());
                 filterNameHashMap.put(FilterName.COLOR, subStr[5].trim());
-            }else if (subStr.length == 6) {
+            }else if (subStr.length == 7) {
                 filterNameHashMap.put(FilterName.BRAND, subStr[0]);
                 filterNameHashMap.put(FilterName.MAXIMUM_SPEED, subStr[1].trim());
                 filterNameHashMap.put(FilterName.WEIGHT, subStr[2].trim());

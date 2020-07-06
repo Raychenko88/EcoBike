@@ -7,7 +7,7 @@ import lombok.*;
 @AllArgsConstructor
 @NoArgsConstructor
 @EqualsAndHashCode
-public class FoldingBike extends DomainObject{
+public class FoldingBike extends DomainObject {
 
     private Integer wheelSize;
     private Integer numberOfSpeeds;
@@ -15,6 +15,12 @@ public class FoldingBike extends DomainObject{
     @Override
     public String toString() {
         return String.format("%s with %d gear(s) and %s head/tail light.\n" +
-                "Price: %d euros.", getBrand(), numberOfSpeeds, getLightsAtFrontAndBack()?"":"no", getPrice());
+                "Price: %s euros.", getBrand(), numberOfSpeeds, getLightsAtFrontAndBack() ? "" : "no", getPrice().toString());
+    }
+
+    @Override
+    public String toStringToWrite() {
+        return getBrand() + "; " + getWheelSize() + "; " + getNumberOfSpeeds() + "; " + getWeight() + "; " +
+                getLightsAtFrontAndBack() + "; " + getColor() + "; " + getPrice();
     }
 }

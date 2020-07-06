@@ -15,6 +15,13 @@ public class Speedelec extends DomainObject{
     @Override
     public String toString() {
         return String.format("%s with %d mAh battery and %s head/tail light.\n" +
-                "Price: %d euros.", getBrand(), getBatteryCapacity(), getLightsAtFrontAndBack()?"":"no", getPrice());
+                "Price: %s euros.", getBrand(), getBatteryCapacity(), getLightsAtFrontAndBack()?"":"no", getPrice().toString());
+    }
+
+
+    @Override
+    public String toStringToWrite() {
+        return getBrand() + "; " + getMaximumSpeed() + "; " + getWeight() + "; " + getLightsAtFrontAndBack() + "; " +
+                getBatteryCapacity() + "; " + getColor() + "; " + getPrice();
     }
 }

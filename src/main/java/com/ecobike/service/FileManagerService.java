@@ -8,6 +8,7 @@ import com.ecobike.repository.CollectionBike;
 import lombok.EqualsAndHashCode;
 
 import java.io.*;
+import java.math.BigDecimal;
 import java.net.URLDecoder;
 import java.util.ArrayList;
 import java.util.List;
@@ -37,7 +38,7 @@ public class FileManagerService {
 
         try (FileWriter writer = new FileWriter(fileName)) {
            for (DomainObject bike : set){
-               writer.write(bike.toString());
+               writer.write(bike.toStringToWrite());
            }
            writer.flush();
             return true;
@@ -88,26 +89,26 @@ public class FileManagerService {
         Speedelec speedelec = new Speedelec();
         speedelec.setBrand(subStr[0]);
         speedelec.setMaximumSpeed(Integer.parseInt(subStr[1].trim()));
-        speedelec.setWeight(Integer.parseInt(subStr[2].trim()));
+        speedelec.setWeight(new BigDecimal(subStr[2].trim()));
         speedelec.setLightsAtFrontAndBack(Boolean.parseBoolean(subStr[3].trim()));
         speedelec.setBatteryCapacity(Integer.parseInt(subStr[4].trim()));
         speedelec.setColor(subStr[5].trim());
-        speedelec.setPrice(Integer.parseInt(subStr[6].trim()));
+        speedelec.setPrice(new BigDecimal(subStr[6].trim()));
         CollectionBike.speedelecs.add(speedelec);
     }
-
     public static synchronized void addToCollectionElectricBike(String item) {
         String[] subStr = item.split(DELIMETER);
         ElectricBike electricBike = new ElectricBike();
         electricBike.setBrand(subStr[0]);
         electricBike.setMaximumSpeed(Integer.parseInt(subStr[1].trim()));
-        electricBike.setWeight(Integer.parseInt(subStr[2].trim()));
+        electricBike.setWeight(new BigDecimal(subStr[2].trim()));
         electricBike.setLightsAtFrontAndBack(Boolean.parseBoolean(subStr[3].trim()));
         electricBike.setBatteryCapacity(Integer.parseInt(subStr[4].trim()));
         electricBike.setColor(subStr[5].trim());
-        electricBike.setPrice(Integer.parseInt(subStr[6].trim()));
+        electricBike.setPrice(new BigDecimal(subStr[6].trim()));
         CollectionBike.electricBikes.add(electricBike);
     }
+
 
     public static synchronized void addToCollectionFoldingBike(String item) {
         String[] subStr = item.split(DELIMETER);
@@ -115,10 +116,10 @@ public class FileManagerService {
         foldingBike.setBrand(subStr[0]);
         foldingBike.setWheelSize(Integer.parseInt(subStr[1].trim()));
         foldingBike.setNumberOfSpeeds(Integer.parseInt(subStr[2].trim()));
-        foldingBike.setWeight(Integer.parseInt(subStr[3].trim()));
+        foldingBike.setWeight(new BigDecimal(subStr[3].trim()));
         foldingBike.setLightsAtFrontAndBack(Boolean.parseBoolean(subStr[4].trim()));
         foldingBike.setColor(subStr[5].trim());
-        foldingBike.setPrice(Integer.parseInt(subStr[6].trim()));
+        foldingBike.setPrice(new BigDecimal(subStr[6].trim()));
         CollectionBike.foldingBikes.add(foldingBike);
     }
 

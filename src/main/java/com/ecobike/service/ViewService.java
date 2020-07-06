@@ -5,6 +5,7 @@ import com.ecobike.model.*;
 import com.ecobike.repository.CollectionBike;
 import lombok.EqualsAndHashCode;
 
+import java.math.BigDecimal;
 import java.util.*;
 import java.util.stream.Collectors;
 
@@ -32,17 +33,17 @@ public class ViewService {
                 Integer.parseInt(subStr[1].trim()) > 0 &&
                 Integer.parseInt(subStr[2].trim()) > 0 &&
                 Integer.parseInt(subStr[3].trim()) > 0 &&
-                Boolean.parseBoolean(subStr[4].trim()) == true || false &&
+                subStr[4] != null &&
                 !(subStr[5].trim()).isEmpty() &&
                 Integer.parseInt(subStr[6].trim()) > 0) {
             FoldingBike foldingBike = new FoldingBike();
             foldingBike.setBrand(subStr[0]);
             foldingBike.setWheelSize(Integer.parseInt(subStr[1].trim()));
             foldingBike.setNumberOfSpeeds(Integer.parseInt(subStr[2].trim()));
-            foldingBike.setWeight(Integer.parseInt(subStr[3].trim()));
+            foldingBike.setWeight(new BigDecimal(subStr[3].trim()));
             foldingBike.setLightsAtFrontAndBack(Boolean.parseBoolean(subStr[4].trim()));
             foldingBike.setColor(subStr[5].trim());
-            foldingBike.setPrice(Integer.parseInt(subStr[6].trim()));
+            foldingBike.setPrice(new BigDecimal(subStr[6].trim()));
             CollectionBike.foldingBikes.add(foldingBike);
             return true;
         }
@@ -57,18 +58,18 @@ public class ViewService {
         if (subStr[0].startsWith("SPEEDELEC") &&    //startWith
                 Integer.parseInt(subStr[1].trim()) > 0 &&
                 Integer.parseInt(subStr[2].trim()) > 0 &&
-                Boolean.parseBoolean(subStr[3].trim()) == true || false &&
+                subStr[3] != null &&
                 Integer.parseInt(subStr[4].trim()) > 0 &&
                 !(subStr[5].trim()).isEmpty() &&
                 Integer.parseInt(subStr[6].trim()) > 0) {
             Speedelec speedelec = new Speedelec();
             speedelec.setBrand(subStr[0]);
             speedelec.setMaximumSpeed(Integer.parseInt(subStr[1].trim()));
-            speedelec.setWeight(Integer.parseInt(subStr[2].trim()));
+            speedelec.setWeight(new BigDecimal(subStr[2].trim()));
             speedelec.setLightsAtFrontAndBack(Boolean.parseBoolean(subStr[3].trim()));
             speedelec.setBatteryCapacity(Integer.parseInt(subStr[4].trim()));
             speedelec.setColor(subStr[5].trim());
-            speedelec.setPrice(Integer.parseInt(subStr[6].trim()));
+            speedelec.setPrice(new BigDecimal(subStr[6].trim()));
             CollectionBike.speedelecs.add(speedelec);
             return true;
         }
@@ -83,18 +84,18 @@ public class ViewService {
         if (subStr[0].startsWith("SPEEDELEC") &&    //startWith
                 Integer.parseInt(subStr[1].trim()) > 0 &&
                 Integer.parseInt(subStr[2].trim()) > 0 &&
-                Boolean.parseBoolean(subStr[3].trim()) == true || false &&
+                subStr[3] != null &&
                 Integer.parseInt(subStr[4].trim()) > 0 &&
                 !(subStr[5].trim()).isEmpty() &&
                 Integer.parseInt(subStr[6].trim()) > 0) {
             ElectricBike electricBike = new ElectricBike();
             electricBike.setBrand(subStr[0]);
             electricBike.setMaximumSpeed(Integer.parseInt(subStr[1].trim()));
-            electricBike.setWeight(Integer.parseInt(subStr[2].trim()));
+            electricBike.setWeight(new BigDecimal(subStr[2].trim()));
             electricBike.setLightsAtFrontAndBack(Boolean.parseBoolean(subStr[3].trim()));
             electricBike.setBatteryCapacity(Integer.parseInt(subStr[4].trim()));
             electricBike.setColor(subStr[5].trim());
-            electricBike.setPrice(Integer.parseInt(subStr[6].trim()));
+            electricBike.setPrice(new BigDecimal(subStr[6].trim()));
             CollectionBike.speedelecs.add(electricBike);
             return true;
         }
@@ -114,196 +115,120 @@ public class ViewService {
     private static Set<DomainObject> getFilteredeFoldingBike(Set<DomainObject> foldingBikes, Map<FilterName, String> filter) {
         return foldingBikes
                 .stream()
-                .filter(it -> isFoldingBikeAcceptable(it, filter))
+                .filter(it -> isAcceptable(it, filter))
                 .collect(Collectors.toSet());
     }
 
-    private static boolean isFoldingBikeAcceptable(DomainObject domainObject, Map<FilterName, String> filter) {
-        FoldingBike foldingBike = (FoldingBike) domainObject;
-        if (foldingBike.getBrand().equals(filter.get(FilterName.BRAND))) {
-            if (filter.get(FilterName.WEIGHT) != null) {
-                if (foldingBike.getWeight().equals(Integer.valueOf(filter.get(FilterName.WEIGHT)))) {
-                    if (filter.get(FilterName.LIGHTS) != null) {
-                        if (foldingBike.getLightsAtFrontAndBack().equals(Boolean.valueOf(filter.get(FilterName.LIGHTS)))) {
-                            if (filter.get(FilterName.COLOR) != null) {
-                                if (foldingBike.getColor().equals(filter.get(FilterName.COLOR))) {
-                                    if (filter.get(FilterName.PRICE) != null) {
-                                        if (foldingBike.getPrice().equals(Integer.valueOf(filter.get(FilterName.PRICE)))) {
-                                            if (filter.get(FilterName.WHEEL_SIZE) != null) {
-                                                if (foldingBike.getWheelSize().equals(Integer.valueOf(filter.get(FilterName.WHEEL_SIZE)))) {
-                                                    if (filter.get(FilterName.NUMBER_SPEEDS) != null) {
-                                                        if (foldingBike.getNumberOfSpeeds().equals(Integer.valueOf(filter.get(FilterName.NUMBER_SPEEDS)))) {
-                                                            return true;
-                                                        } else {
-                                                            return false;
-                                                        }
-                                                    } else {
-                                                        return true;
-                                                    }
-                                                } else {
-                                                    return false;
-                                                }
-                                            } else {
-                                                return true;
-                                            }
-                                        } else {
-                                            return false;
-                                        }
-                                    } else {
-                                        return true;
-                                    }
-                                } else {
-                                    return false;
-                                }
-                            } else {
-                                return true;
-                            }
-                        } else {
-                            return false;
-                        }
-                    } else {
-                        return true;
-                    }
-                } else {
-                    return false;
-                }
-            } else {
-                return true;
-            }
-        } else {
-            return false;
-        }
-    }
 
     private static Set<DomainObject> getFilteredeElectroBikes(Set<DomainObject> electricBikes, Map<FilterName, String> filter) {
         return electricBikes
                 .stream()
-                .filter(it -> isElectroBikeAcceptable(it, filter))
+                .filter(it -> isAcceptable(it, filter))
                 .collect(Collectors.toSet());
     }
 
-    private static boolean isElectroBikeAcceptable(DomainObject domainObject, Map<FilterName, String> filter) {
-        ElectricBike electricBike = (ElectricBike) domainObject;
-        if (electricBike.getBrand().equals(filter.get(FilterName.BRAND))) {
-            if (filter.get(FilterName.WEIGHT) != null) {
-                if (electricBike.getWeight().equals(Integer.valueOf(filter.get(FilterName.WEIGHT)))) {
-                    if (filter.get(FilterName.LIGHTS) != null) {
-                        if (electricBike.getLightsAtFrontAndBack().equals(Boolean.valueOf(filter.get(FilterName.LIGHTS)))) {
-                            if (filter.get(FilterName.COLOR) != null) {
-                                if (electricBike.getColor().equals(filter.get(FilterName.COLOR))) {
-                                    if (filter.get(FilterName.PRICE) != null) {
-                                        if (electricBike.getPrice().equals(Integer.valueOf(filter.get(FilterName.PRICE)))) {
-                                            if (filter.get(FilterName.MAXIMUM_SPEED) != null) {
-                                                if (electricBike.getMaximumSpeed().equals(Integer.valueOf(filter.get(FilterName.MAXIMUM_SPEED)))) {
-                                                    if (filter.get(FilterName.BATTERY) != null) {
-                                                        if (electricBike.getBatteryCapacity().equals(Integer.valueOf(filter.get(FilterName.BATTERY)))) {
-                                                            return true;
-                                                        } else {
-                                                            return false;
-                                                        }
-                                                    } else {
-                                                        return true;
-                                                    }
-                                                } else {
-                                                    return false;
-                                                }
-                                            } else {
-                                                return true;
-                                            }
-                                        } else {
-                                            return false;
-                                        }
-                                    } else {
-                                        return true;
-                                    }
-                                } else {
-                                    return false;
-                                }
-                            } else {
-                                return true;
-                            }
-                        } else {
-                            return false;
-                        }
-                    } else {
-                        return true;
-                    }
-                } else {
-                    return false;
-                }
-            } else {
-                return true;
-            }
-        } else {
-            return false;
-        }
-
-    }
 
     private static Set<DomainObject> getFilteredeSpeedelecs(Set<DomainObject> speedelecs, Map<FilterName, String> filter) {
         return speedelecs
                 .stream()
-                .filter(it -> isSpeedelecAcceptable(it, filter))
+                .filter(it -> isAcceptable(it, filter))
                 .collect(Collectors.toSet());
     }
 
 
+    private static boolean isAcceptable(DomainObject domainObject, Map<FilterName, String> filter) {
+        boolean result = false;
+        if (filter.get(FilterName.BRAND) != null && !(filter.get(FilterName.BRAND).isEmpty())) {
+            if (domainObject.getBrand().equals(filter.get(FilterName.BRAND))) {
+                result = true;
+            } else {
+                return false;
+            }
+        }
+        if (filter.get(FilterName.COLOR) != null && !(filter.get(FilterName.COLOR).isEmpty())) {
+            if (domainObject.getColor().equals(filter.get(FilterName.COLOR))) {
+                result = true;
+            } else {
+                return false;
+            }
+        }
+        if (filter.get(FilterName.PRICE) != null && !(filter.get(FilterName.PRICE).isEmpty())) {
+            if (domainObject.getPrice().equals(filter.get(FilterName.PRICE))) {
+                result = true;
+            } else {
+                return false;
+            }
+        }
+        if (filter.get(FilterName.LIGHTS) != null && !(filter.get(FilterName.LIGHTS).isEmpty())) {
+            if (domainObject.getLightsAtFrontAndBack().equals(filter.get(FilterName.LIGHTS))) {
+                result = true;
+            } else {
+                return false;
+            }
+        }
+        if (filter.get(FilterName.WEIGHT) != null && !(filter.get(FilterName.WEIGHT).isEmpty())) {
+            if (domainObject.getWeight().equals(filter.get(FilterName.WEIGHT))) {
+                result = true;
+            } else {
+                return false;
+            }
+        }
 
-    private static boolean isSpeedelecAcceptable(DomainObject domainObject, Map<FilterName, String> filter) {
-        Speedelec speedelec = (Speedelec) domainObject;
-        if (speedelec.getBrand().equals(filter.get(FilterName.BRAND))) {
-            if (filter.get(FilterName.MAXIMUM_SPEED) != null) {
-                if (speedelec.getMaximumSpeed().equals(Integer.valueOf(filter.get(FilterName.MAXIMUM_SPEED)))) {
-                    if (filter.get(FilterName.WEIGHT) != null) {
-                        if (speedelec.getWeight().equals(Integer.valueOf(filter.get(FilterName.WEIGHT)))) {
-                            if (filter.get(FilterName.LIGHTS) != null) {
-                                if (speedelec.getLightsAtFrontAndBack().equals(Boolean.valueOf(filter.get(FilterName.LIGHTS)))) {
-                                    if (filter.get(FilterName.BATTERY) != null) {
-                                        if (speedelec.getBatteryCapacity().equals(Integer.valueOf(filter.get(FilterName.BATTERY)))) {
-                                            if (filter.get(FilterName.COLOR) != null) {
-                                                if (speedelec.getColor().equals(filter.get(FilterName.COLOR))) {
-                                                    if (filter.get(FilterName.PRICE) != null) {
-                                                        if (speedelec.getPrice().equals(Integer.valueOf(filter.get(FilterName.PRICE)))) {
-                                                            return true;
-                                                        } else {
-                                                            return false;
-                                                        }
-                                                    } else {
-                                                        return true;
-                                                    }
-                                                } else {
-                                                    return false;
-                                                }
-                                            } else {
-                                                return true;
-                                            }
-                                        } else {
-                                            return false;
-                                        }
-                                    } else {
-                                        return true;
-                                    }
-                                } else {
-                                    return false;
-                                }
-                            } else {
-                                return true;
-                            }
-                        } else {
-                            return false;
-                        }
-                    } else {
-                        return true;
-                    }
+
+        if (domainObject instanceof Speedelec) {
+            Speedelec speedelec = (Speedelec) domainObject;
+            if (filter.get(FilterName.MAXIMUM_SPEED) != null && !(filter.get(FilterName.MAXIMUM_SPEED).isEmpty())) {
+                if (speedelec.getMaximumSpeed().equals(filter.get(FilterName.MAXIMUM_SPEED))) {
+                    result = true;
                 } else {
                     return false;
                 }
-            } else {
-                return true;
             }
-        } else {
-            return false;
+            if (filter.get(FilterName.BATTERY) != null && !(filter.get(FilterName.BATTERY).isEmpty())) {
+                if (speedelec.getBatteryCapacity().equals(filter.get(FilterName.BATTERY))) {
+                    result = true;
+                } else {
+                    return false;
+                }
+            }
         }
+
+        if (domainObject instanceof ElectricBike) {
+            ElectricBike electricBike = (ElectricBike) domainObject;
+            if (filter.get(FilterName.MAXIMUM_SPEED) != null && !(filter.get(FilterName.MAXIMUM_SPEED).isEmpty())) {
+                if (electricBike.getMaximumSpeed().equals(filter.get(FilterName.MAXIMUM_SPEED))) {
+                    result = true;
+                } else {
+                    return false;
+                }
+            }
+            if (filter.get(FilterName.BATTERY) != null && !(filter.get(FilterName.BATTERY).isEmpty())) {
+                if (electricBike.getBatteryCapacity().equals(filter.get(FilterName.BATTERY))) {
+                    result = true;
+                } else {
+                    return false;
+                }
+            }
+        }
+
+        if (domainObject instanceof FoldingBike) {
+            FoldingBike foldingBike = (FoldingBike) domainObject;
+            if (filter.get(FilterName.WHEEL_SIZE) != null && !(filter.get(FilterName.WHEEL_SIZE).isEmpty())) {
+                if (foldingBike.getWheelSize().equals(filter.get(FilterName.WHEEL_SIZE))) {
+                    result = true;
+                } else {
+                    return false;
+                }
+            }
+            if (filter.get(FilterName.NUMBER_SPEEDS) != null && !(filter.get(FilterName.NUMBER_SPEEDS).isEmpty())) {
+                if (foldingBike.getNumberOfSpeeds().equals(filter.get(FilterName.NUMBER_SPEEDS))) {
+                    result = true;
+                } else {
+                    return false;
+                }
+            }
+        }
+        return result;
     }
 
 
@@ -314,9 +239,5 @@ public class ViewService {
             }
         }
         return false;
-    }
-
-    public static void stopTheProgram() {
-
     }
 }
