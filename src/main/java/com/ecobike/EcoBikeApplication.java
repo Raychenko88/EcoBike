@@ -17,7 +17,9 @@ import java.util.TreeSet;
 
 public class EcoBikeApplication {
 
-    public static final String FILE_NAME = "EcoBike.txt";
+    private static final String FILE_PATH = System.getProperty("user.dir") + System.getProperty("file.separator") +
+            "files" + System.getProperty("file.separator");
+    public static final String FILE_NAME = FILE_PATH + "EcoBike.txt";
     private static Scanner scanner = new Scanner(System.in);
 
     public static void main(String[] args) throws IOException {

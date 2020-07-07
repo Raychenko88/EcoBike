@@ -64,6 +64,9 @@ public class MenuView {
                 } else if (intChoice.equals("7")) {
                     System.out.println("\n" + "You have left the program" + "\n");
                     break;
+                }else {
+                    System.out.println("\n" + "You entered the wrong number, try again." + "\n");
+                    mainMenu(scanner);
                 }
             }
         } catch (NoSuchElementException e) {
@@ -140,10 +143,10 @@ public class MenuView {
             set.addAll(CollectionBike.speedelecs);
             if (ViewService.writeToFile(EcoBikeApplication.FILE_NAME, set)) {
                 System.out.println("All changes are added to the file.");
+                return true;
             } else {
                 return false;
             }
-
         }
         // тут должна быть рекурсия на этот же метод
         return false;

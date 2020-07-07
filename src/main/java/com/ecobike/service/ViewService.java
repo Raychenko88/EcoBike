@@ -153,21 +153,21 @@ public class ViewService {
             }
         }
         if (filter.get(FilterName.PRICE) != null && !(filter.get(FilterName.PRICE).isEmpty())) {
-            if (domainObject.getPrice().equals(filter.get(FilterName.PRICE))) {
+            if (domainObject.getPrice().toString().equals(filter.get(FilterName.PRICE))) {
                 result = true;
             } else {
                 return false;
             }
         }
         if (filter.get(FilterName.LIGHTS) != null && !(filter.get(FilterName.LIGHTS).isEmpty())) {
-            if (domainObject.getLightsAtFrontAndBack().equals(filter.get(FilterName.LIGHTS))) {
+            if (domainObject.getLightsAtFrontAndBack().toString().equals(filter.get(FilterName.LIGHTS))) {
                 result = true;
             } else {
                 return false;
             }
         }
         if (filter.get(FilterName.WEIGHT) != null && !(filter.get(FilterName.WEIGHT).isEmpty())) {
-            if (domainObject.getWeight().equals(filter.get(FilterName.WEIGHT))) {
+            if (domainObject.getWeight().toString().equals(filter.get(FilterName.WEIGHT))) {
                 result = true;
             } else {
                 return false;
@@ -178,14 +178,14 @@ public class ViewService {
         if (domainObject instanceof Speedelec) {
             Speedelec speedelec = (Speedelec) domainObject;
             if (filter.get(FilterName.MAXIMUM_SPEED) != null && !(filter.get(FilterName.MAXIMUM_SPEED).isEmpty())) {
-                if (speedelec.getMaximumSpeed().equals(filter.get(FilterName.MAXIMUM_SPEED))) {
+                if (speedelec.getMaximumSpeed().toString().equals(filter.get(FilterName.MAXIMUM_SPEED))) {
                     result = true;
                 } else {
                     return false;
                 }
             }
             if (filter.get(FilterName.BATTERY) != null && !(filter.get(FilterName.BATTERY).isEmpty())) {
-                if (speedelec.getBatteryCapacity().equals(filter.get(FilterName.BATTERY))) {
+                if (speedelec.getBatteryCapacity().toString().equals(filter.get(FilterName.BATTERY))) {
                     result = true;
                 } else {
                     return false;
@@ -196,14 +196,14 @@ public class ViewService {
         if (domainObject instanceof ElectricBike) {
             ElectricBike electricBike = (ElectricBike) domainObject;
             if (filter.get(FilterName.MAXIMUM_SPEED) != null && !(filter.get(FilterName.MAXIMUM_SPEED).isEmpty())) {
-                if (electricBike.getMaximumSpeed().equals(filter.get(FilterName.MAXIMUM_SPEED))) {
+                if (electricBike.getMaximumSpeed().toString().equals(filter.get(FilterName.MAXIMUM_SPEED))) {
                     result = true;
                 } else {
                     return false;
                 }
             }
             if (filter.get(FilterName.BATTERY) != null && !(filter.get(FilterName.BATTERY).isEmpty())) {
-                if (electricBike.getBatteryCapacity().equals(filter.get(FilterName.BATTERY))) {
+                if (electricBike.getBatteryCapacity().toString().equals(filter.get(FilterName.BATTERY))) {
                     result = true;
                 } else {
                     return false;
@@ -214,14 +214,14 @@ public class ViewService {
         if (domainObject instanceof FoldingBike) {
             FoldingBike foldingBike = (FoldingBike) domainObject;
             if (filter.get(FilterName.WHEEL_SIZE) != null && !(filter.get(FilterName.WHEEL_SIZE).isEmpty())) {
-                if (foldingBike.getWheelSize().equals(filter.get(FilterName.WHEEL_SIZE))) {
+                if (foldingBike.getWheelSize().toString().equals(filter.get(FilterName.WHEEL_SIZE))) {
                     result = true;
                 } else {
                     return false;
                 }
             }
             if (filter.get(FilterName.NUMBER_SPEEDS) != null && !(filter.get(FilterName.NUMBER_SPEEDS).isEmpty())) {
-                if (foldingBike.getNumberOfSpeeds().equals(filter.get(FilterName.NUMBER_SPEEDS))) {
+                if (foldingBike.getNumberOfSpeeds().toString().equals(filter.get(FilterName.NUMBER_SPEEDS))) {
                     result = true;
                 } else {
                     return false;

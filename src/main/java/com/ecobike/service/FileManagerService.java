@@ -18,6 +18,7 @@ import java.util.Set;
 @EqualsAndHashCode
 public class FileManagerService {
 
+
     private static final String DELIMETER = ";";
 
 
@@ -35,26 +36,30 @@ public class FileManagerService {
     }
 
     public static boolean writeFile(String fileName, Set<DomainObject> set) {
+        File file = new File(fileName);
+        if (file != null){
+            try( FileWriter writer = new FileWriter(file);
+                 BufferedWriter bufferedWriter = new BufferedWriter(writer);) {
 
-        try (FileWriter writer = new FileWriter(fileName)) {
-           for (DomainObject bike : set){
-               writer.write(bike.toStringToWrite());
-           }
-           writer.flush();
-            return true;
-        } catch (IOException e) {
-            e.printStackTrace();
-            return false;
+                for (DomainObject bike : set){
+                    bufferedWriter.write(bike.toStringToWrite() + "\n");
+                }
+
+                bufferedWriter.flush();
+                return true;
+            } catch (IOException e) {
+                e.printStackTrace();
+                return false;
+            }
         }
+       return false;
     }
 
     public static synchronized void fillCollectionsFromFile(String fileName) {
 
         try {
-            FileExtractor fileExtractor = new FileExtractor();
-//TODO сделать проверку на наличие файла
-            File file = fileExtractor.getFileFromResources(fileName);
-            FileReader fileReader = new FileReader(decode(file.getAbsolutePath()));
+            File file = new File(fileName);
+            FileReader fileReader = new FileReader(file);
             BufferedReader bufferedReader = new BufferedReader(fileReader);
             String temp;
             while ((temp = bufferedReader.readLine()) != null) {
@@ -108,8 +113,6 @@ public class FileManagerService {
         electricBike.setPrice(new BigDecimal(subStr[6].trim()));
         CollectionBike.electricBikes.add(electricBike);
     }
-
-
     public static synchronized void addToCollectionFoldingBike(String item) {
         String[] subStr = item.split(DELIMETER);
         FoldingBike foldingBike = new FoldingBike();
