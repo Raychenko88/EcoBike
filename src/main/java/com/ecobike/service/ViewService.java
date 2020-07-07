@@ -96,7 +96,7 @@ public class ViewService {
             electricBike.setBatteryCapacity(Integer.parseInt(subStr[4].trim()));
             electricBike.setColor(subStr[5].trim());
             electricBike.setPrice(new BigDecimal(subStr[6].trim()));
-            CollectionBike.speedelecs.add(electricBike);
+            CollectionBike.electricBikes.add(electricBike);
             return true;
         }
         return false;

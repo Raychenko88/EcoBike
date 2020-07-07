@@ -22,13 +22,13 @@ public class FileManagerService {
     private static final String DELIMETER = ";";
 
 
-    public static void addAllCollections(String fileName) {
-        if (checkPathAndFile(fileName)) {
-            FileManagerService.fillCollectionsFromFile(fileName);
-        } else {
-            System.out.println("Check data fail");
-        }
-    }
+//    public static void addAllCollections(String fileName) {
+//        if (checkPathAndFile(fileName)) {
+//            FileManagerService.fillCollectionsFromFile(fileName);
+//        } else {
+//            System.out.println("Check data fail");
+//        }
+//    }
 
     public static boolean checkPathAndFile(String fileName) {
         File isFile = new File(fileName);
