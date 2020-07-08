@@ -122,7 +122,7 @@ public class MenuView {
             if (!(optionsForBike.isEmpty())) {
                 HashMap<FilterName, String> hashMap = fillMapFilter(optionsForBike);
                 if (hashMap.size() > 0) {
-                    TreeSet<DomainObject> treeSet = ViewService.showFindTheFirstItemOfBrand(fillMapFilter(optionsForBike));
+                    TreeSet<DomainObject> treeSet = ViewService.showFindTheFirstItemOfBrand(hashMap);
                     if (treeSet.size() != 0) {
                         System.out.println("The first item of a particular brand - " +
                                 treeSet.first());
@@ -282,8 +282,8 @@ public class MenuView {
     private static void viewNewСonditionToSpeedelecBike() {
         System.out.println("Enter the data as shown in the example below, after each parameter you need to set ;");
         System.out.println("SPEEDELEC Peugeot; 50; 20800; true; 15700; silver; 1279");
-        System.out.println("Where: SPEEDELEC Peugeot - is the name of the product and brand; 45 - The maximum speed (in km/h); 5426 - The weight of the bike (in grams); " +
-                "true or false - The availability of lights at front and back; 8000 - The battery capacity (in mAh); blue - A color; 875 - The price.");
+        System.out.println("Where: SPEEDELEC Peugeot - is the name of the product and brand; 50 - The maximum speed (in km/h); 20800 - The weight of the bike (in grams); " +
+                "true or false - The availability of lights at front and back; 15700 - The battery capacity (in mAh); blue - A color; 1279 - The price.");
     }
 
     private static void viewNewConditionElectricBike() {
@@ -298,11 +298,11 @@ public class MenuView {
         System.out.println("If the parameter is not known, put a space instead.");
         System.out.println("The required input parameter is to indicate the type of bike and its brand." + "\n");
         System.out.println("E-BIKE Koga; 60; 21200; false; 15000; brown; 1135");
-        System.out.println("Where: E-BIKE Gazelle - is the name of the product and brand; 49 - The maximum speed (in km/h); 16455 - The weight of the bike (in grams); " +
-                "true or false - The availability of lights at front and back; 16000 - The battery capacity (in mAh); red - A color; 1499 - The price." + "\n");
+        System.out.println("Where: E-BIKE Koga - is the name of the product and brand; 60 - The maximum speed (in km/h); 21200 - The weight of the bike (in grams); " +
+                "true or false - The availability of lights at front and back; 15000 - The battery capacity (in mAh); brown - A color; 1135 - The price." + "\n");
         System.out.println("SPEEDELEC Peugeot; 50; 20800; true; 15700; silver; 1279");
-        System.out.println("Where: SPEEDELEC Peugeot - is the name of the product and brand; 45 - The maximum speed (in km/h); 5426 - The weight of the bike (in grams); " +
-                "true or false - The availability of lights at front and back; 8000 - The battery capacity (in mAh); blue - A color; 875 - The price." + "\n");
+        System.out.println("Where: SPEEDELEC Peugeot - is the name of the product and brand; 50 - The maximum speed (in km/h); 20800 - The weight of the bike (in grams); " +
+                "true or false - The availability of lights at front and back; 15700 - The battery capacity (in mAh); silver - A color; 1279 - The price." + "\n");
         System.out.println("FOLDING BIKE Benetti; 24; 27; 11400; false; rose; 1009");
         System.out.println("Where: FOLDING BIKE Benetti - A brand; 24 - The size of the wheels (in inch); 27 - The number of gears" + "\n" +
                 "11400 - The weight of the bike (in grams); true or false - The availability of lights at front and back; rose - A color; 1009 - The price." + "\n");

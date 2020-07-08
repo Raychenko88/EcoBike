@@ -1,19 +1,14 @@
 package com.ecobike.service;
 
 import com.ecobike.EcoBikeApplication;
-import com.ecobike.model.DomainObject;
-import com.ecobike.model.ElectricBike;
-import com.ecobike.model.FoldingBike;
-import com.ecobike.model.Speedelec;
+import com.ecobike.model.*;
 import com.ecobike.repository.CollectionBike;
+import com.ecobike.view.MenuView;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 
 import java.math.BigDecimal;
-import java.util.Collections;
-import java.util.HashSet;
-import java.util.Set;
-import java.util.TreeSet;
+import java.util.*;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -24,13 +19,13 @@ class ViewServiceTest {
     public static final String FILE_NAME = FILE_PATH + "EcoBikeTest.txt";
 
     static {
-        FileManagerService.fillCollectionsFromFile(ViewServiceTest.FILE_NAME);
+        FileManagerService.fillCollectionsFromFile(EcoBikeApplication.FILE_NAME);
     }
 
 
-      static   Set<DomainObject> foldingBikes = Collections.synchronizedSet(new HashSet<>());
-     static    Set<DomainObject> electricBikes = Collections.synchronizedSet(new HashSet<>());
-      static   Set<DomainObject> speedelecs = Collections.synchronizedSet(new HashSet<>());
+    static Set<DomainObject> foldingBikes = Collections.synchronizedSet(new HashSet<>());
+    static Set<DomainObject> electricBikes = Collections.synchronizedSet(new HashSet<>());
+    static Set<DomainObject> speedelecs = Collections.synchronizedSet(new HashSet<>());
 
 
     @Test
@@ -67,7 +62,7 @@ class ViewServiceTest {
 
         }
         int after = foldingBikes.size();
-        assertTrue(after>befor);
+        assertTrue(after > befor);
         foldingBikes.removeIf(value -> value.toString().equals(bike));
     }
 
@@ -97,7 +92,7 @@ class ViewServiceTest {
             speedelecs.add(speedelec);
         }
         int after = speedelecs.size();
-        assertTrue(after>befor);
+        assertTrue(after > befor);
         speedelecs.removeIf(value -> value.toString().equals(bike));
     }
 
@@ -127,20 +122,54 @@ class ViewServiceTest {
             electricBikes.add(electricBike);
         }
         int after = electricBikes.size();
-        assertTrue(after>befor);
-        electricBikes.removeIf(value -> value.toString().equals(bike));
+        assertTrue(after > befor);
+        electricBikes.removeIf(value -> value.getBrand().equals("SPEEDELEC E-Test"));
     }
 
     @Test
     void showFindTheFirstItemOfBrand() {
-        TreeSet<DomainObject> treeSet = new TreeSet<>();
-        treeSet.addAll(getFilteredeSpeedelecs(CollectionBike.speedelecs, filter));
-        treeSet.addAll(getFilteredeElectroBikes(CollectionBike.electricBikes, filter));
-        treeSet.addAll(getFilteredeFoldingBike(CollectionBike.foldingBikes, filter));
-        CollectionBike.filtered.addAll(treeSet);
+        HashMap<FilterName, String> filterNameHashMap = new HashMap<>();
+        filterNameHashMap.put(FilterName.BRAND, "SPEEDELEC E-Scooter");
+        filterNameHashMap.put(FilterName.LIGHTS, "false");
+        filterNameHashMap.put(FilterName.COLOR, "marine");
+        filterNameHashMap.put(FilterName.PRICE, "309");
+
+        TreeSet<DomainObject> treeSet = ViewService.showFindTheFirstItemOfBrand(filterNameHashMap);
+        assertFalse(treeSet.isEmpty());
+        assertEquals(treeSet.first().getPrice().toString(), "309");
+        assertEquals(treeSet.first().getBrand(), "SPEEDELEC E-Scooter");
+        assertEquals(treeSet.first().getLightsAtFrontAndBack(), false);
+        assertEquals(treeSet.first().getColor(), "marine");
     }
 
     @Test
     void writeToFile() {
+        String optionsNewTestBike = "SPEEDELEC TestBike; 55; 5555; true; 55555; red; 555";
+        Speedelec speedelec = new Speedelec();
+        speedelec.setBrand("SPEEDELEC TestBike");
+        speedelec.setMaximumSpeed(55);
+        speedelec.setWeight(new BigDecimal(5555));
+        speedelec.setLightsAtFrontAndBack(true);
+        speedelec.setBatteryCapacity(55555);
+        speedelec.setColor("red");
+        speedelec.setPrice(new BigDecimal(555));
+
+        Set<DomainObject> newTestBike = new HashSet<>();
+        newTestBike.add(speedelec);
+
+        assertTrue(ViewService.writeToFile(FILE_NAME, newTestBike));
+        FileManagerService.fillCollectionsFromFile(FILE_NAME);
+        TreeSet<DomainObject> treeSet = new TreeSet<>(CollectionBike.speedelecs);
+        Speedelec test = null;
+        for (DomainObject bike : treeSet){
+            if (bike.getBrand().equals("SPEEDELEC TestBike")){
+                test = (Speedelec) bike;
+            }
+        }
+        assertNotNull(test); assertEquals(test.getBrand(), "SPEEDELEC TestBike");
+        assertEquals(test.getPrice(), new BigDecimal(555));
+        CollectionBike.speedelecs.removeIf(value -> value.getBrand().equals("SPEEDELEC TestBike"));
+        newTestBike = new HashSet<>();
+        assertTrue(ViewService.writeToFile(FILE_NAME, newTestBike));
     }
 }
