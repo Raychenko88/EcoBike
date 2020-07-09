@@ -6,12 +6,18 @@ import com.ecobike.model.FilterName;
 import com.ecobike.model.FoldingBike;
 import com.ecobike.model.Speedelec;
 import com.ecobike.repository.CollectionBike;
+import com.ecobike.service.FileManagerService;
 import com.ecobike.service.ViewService;
 
 import java.util.*;
 
 
 public class MenuView {
+
+//    static {
+//        FileManagerService.fillCollectionsFromFile(EcoBikeApplication.FILE_NAME);
+//    }
+
     static Scanner scanner = new Scanner(System.in);
 
     private static String showChoice = "Please make your choice:\n" +

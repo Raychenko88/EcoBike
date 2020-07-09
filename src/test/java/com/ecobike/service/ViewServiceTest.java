@@ -18,9 +18,9 @@ class ViewServiceTest {
             "files" + System.getProperty("file.separator");
     public static final String FILE_NAME = FILE_PATH + "EcoBikeTest.txt";
 
-    static {
-        FileManagerService.fillCollectionsFromFile(EcoBikeApplication.FILE_NAME);
-    }
+//    static {
+//        FileManagerService.fillCollectionsFromFile(EcoBikeApplication.FILE_NAME);
+//    }
 
 
     static Set<DomainObject> foldingBikes = Collections.synchronizedSet(new HashSet<>());
@@ -30,6 +30,7 @@ class ViewServiceTest {
 
     @Test
     void showAllCatalog() {
+        FileManagerService.fillCollectionsFromFile(EcoBikeApplication.FILE_NAME);
         assertFalse(CollectionBike.speedelecs.isEmpty());
         assertFalse(CollectionBike.foldingBikes.isEmpty());
         assertFalse(CollectionBike.electricBikes.isEmpty());
@@ -37,33 +38,19 @@ class ViewServiceTest {
 
     @Test
     void addNewFoldingBike() {
-        String bike = "FOLDING BIKE TestBike; 24; 6; 9400; true; silver; 1195";
-        String[] subStr;
-        String str = bike;
-        String delimeter = ";";
-        int befor = foldingBikes.size();
-        subStr = str.split(delimeter);
-        if (subStr[0].startsWith("FOLDING") &&   //startWith
-                Integer.parseInt(subStr[1].trim()) > 0 &&
-                Integer.parseInt(subStr[2].trim()) > 0 &&
-                Integer.parseInt(subStr[3].trim()) > 0 &&
-                subStr[4] != null &&
-                !(subStr[5].trim()).isEmpty() &&
-                Integer.parseInt(subStr[6].trim()) > 0) {
-            FoldingBike foldingBike = new FoldingBike();
-            foldingBike.setBrand(subStr[0]);
-            foldingBike.setWheelSize(Integer.parseInt(subStr[1].trim()));
-            foldingBike.setNumberOfSpeeds(Integer.parseInt(subStr[2].trim()));
-            foldingBike.setWeight(new BigDecimal(subStr[3].trim()));
-            foldingBike.setLightsAtFrontAndBack(Boolean.parseBoolean(subStr[4].trim()));
-            foldingBike.setColor(subStr[5].trim());
-            foldingBike.setPrice(new BigDecimal(subStr[6].trim()));
-            foldingBikes.add(foldingBike);
-
+        String bikeOptions = "FOLDING BIKE TestBike; 24; 6; 9400; true; silver; 1195";
+        assertTrue(ViewService.addNewFoldingBike(bikeOptions));
+//        FileManagerService.addToCollectionFoldingBike(bikeOptions);
+        FoldingBike test = null;
+        for (DomainObject bike : CollectionBike.foldingBikes) {
+            if (bike.getBrand().equals("FOLDING BIKE TestBike")) {
+                test = (FoldingBike) bike;
+            }
         }
-        int after = foldingBikes.size();
-        assertTrue(after > befor);
-        foldingBikes.removeIf(value -> value.toString().equals(bike));
+        assertNotNull(test);
+        assertEquals(test.getPrice(), new BigDecimal(1195));
+        assertEquals(test.getBrand(), "FOLDING BIKE TestBike");
+        CollectionBike.foldingBikes.removeIf(value -> value.getBrand().equals("FOLDING BIKE TestBike"));
     }
 
     @Test
@@ -161,12 +148,13 @@ class ViewServiceTest {
         FileManagerService.fillCollectionsFromFile(FILE_NAME);
         TreeSet<DomainObject> treeSet = new TreeSet<>(CollectionBike.speedelecs);
         Speedelec test = null;
-        for (DomainObject bike : treeSet){
-            if (bike.getBrand().equals("SPEEDELEC TestBike")){
+        for (DomainObject bike : treeSet) {
+            if (bike.getBrand().equals("SPEEDELEC TestBike")) {
                 test = (Speedelec) bike;
             }
         }
-        assertNotNull(test); assertEquals(test.getBrand(), "SPEEDELEC TestBike");
+        assertNotNull(test);
+        assertEquals(test.getBrand(), "SPEEDELEC TestBike");
         assertEquals(test.getPrice(), new BigDecimal(555));
         CollectionBike.speedelecs.removeIf(value -> value.getBrand().equals("SPEEDELEC TestBike"));
         newTestBike = new HashSet<>();
