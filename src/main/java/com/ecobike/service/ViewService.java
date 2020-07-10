@@ -36,15 +36,17 @@ public class ViewService {
                 subStr[4] != null &&
                 !(subStr[5].trim()).isEmpty() &&
                 Integer.parseInt(subStr[6].trim()) > 0) {
-            FoldingBike foldingBike = new FoldingBike();
-            foldingBike.setBrand(subStr[0]);
-            foldingBike.setWheelSize(Integer.parseInt(subStr[1].trim()));
-            foldingBike.setNumberOfSpeeds(Integer.parseInt(subStr[2].trim()));
-            foldingBike.setWeight(new BigDecimal(subStr[3].trim()));
-            foldingBike.setLightsAtFrontAndBack(Boolean.parseBoolean(subStr[4].trim()));
-            foldingBike.setColor(subStr[5].trim());
-            foldingBike.setPrice(new BigDecimal(subStr[6].trim()));
-            CollectionBike.foldingBikes.add(foldingBike);
+//            FoldingBike foldingBike = new FoldingBike();
+//            foldingBike.setBrand(subStr[0]);
+//            foldingBike.setWheelSize(Integer.parseInt(subStr[1].trim()));
+//            foldingBike.setNumberOfSpeeds(Integer.parseInt(subStr[2].trim()));
+//            foldingBike.setWeight(new BigDecimal(subStr[3].trim()));
+//            foldingBike.setLightsAtFrontAndBack(Boolean.parseBoolean(subStr[4].trim()));
+//            foldingBike.setColor(subStr[5].trim());
+//            foldingBike.setPrice(new BigDecimal(subStr[6].trim()));
+//            CollectionBike.foldingBikes.add(foldingBike);
+            FileManagerService.addToCollectionFoldingBike(optionsBike);
+
             return true;
         }
         return false;
@@ -62,15 +64,16 @@ public class ViewService {
                 Integer.parseInt(subStr[4].trim()) > 0 &&
                 !(subStr[5].trim()).isEmpty() &&
                 Integer.parseInt(subStr[6].trim()) > 0) {
-            Speedelec speedelec = new Speedelec();
-            speedelec.setBrand(subStr[0]);
-            speedelec.setMaximumSpeed(Integer.parseInt(subStr[1].trim()));
-            speedelec.setWeight(new BigDecimal(subStr[2].trim()));
-            speedelec.setLightsAtFrontAndBack(Boolean.parseBoolean(subStr[3].trim()));
-            speedelec.setBatteryCapacity(Integer.parseInt(subStr[4].trim()));
-            speedelec.setColor(subStr[5].trim());
-            speedelec.setPrice(new BigDecimal(subStr[6].trim()));
-            CollectionBike.speedelecs.add(speedelec);
+//            Speedelec speedelec = new Speedelec();
+//            speedelec.setBrand(subStr[0]);
+//            speedelec.setMaximumSpeed(Integer.parseInt(subStr[1].trim()));
+//            speedelec.setWeight(new BigDecimal(subStr[2].trim()));
+//            speedelec.setLightsAtFrontAndBack(Boolean.parseBoolean(subStr[3].trim()));
+//            speedelec.setBatteryCapacity(Integer.parseInt(subStr[4].trim()));
+//            speedelec.setColor(subStr[5].trim());
+//            speedelec.setPrice(new BigDecimal(subStr[6].trim()));
+//            CollectionBike.speedelecs.add(speedelec);
+            FileManagerService.addToCollectionSpeedelec(optionsBike);
             return true;
         }
         return false;
@@ -81,22 +84,23 @@ public class ViewService {
         String str = optionsBike;
         String delimeter = ";";
         subStr = str.split(delimeter);
-        if (subStr[0].startsWith("SPEEDELEC") &&    //startWith
+        if (subStr[0].startsWith("E-BIKE") &&    //startWith
                 Integer.parseInt(subStr[1].trim()) > 0 &&
                 Integer.parseInt(subStr[2].trim()) > 0 &&
                 subStr[3] != null &&
                 Integer.parseInt(subStr[4].trim()) > 0 &&
                 !(subStr[5].trim()).isEmpty() &&
                 Integer.parseInt(subStr[6].trim()) > 0) {
-            ElectricBike electricBike = new ElectricBike();
-            electricBike.setBrand(subStr[0]);
-            electricBike.setMaximumSpeed(Integer.parseInt(subStr[1].trim()));
-            electricBike.setWeight(new BigDecimal(subStr[2].trim()));
-            electricBike.setLightsAtFrontAndBack(Boolean.parseBoolean(subStr[3].trim()));
-            electricBike.setBatteryCapacity(Integer.parseInt(subStr[4].trim()));
-            electricBike.setColor(subStr[5].trim());
-            electricBike.setPrice(new BigDecimal(subStr[6].trim()));
-            CollectionBike.electricBikes.add(electricBike);
+//            ElectricBike electricBike = new ElectricBike();
+//            electricBike.setBrand(subStr[0]);
+//            electricBike.setMaximumSpeed(Integer.parseInt(subStr[1].trim()));
+//            electricBike.setWeight(new BigDecimal(subStr[2].trim()));
+//            electricBike.setLightsAtFrontAndBack(Boolean.parseBoolean(subStr[3].trim()));
+//            electricBike.setBatteryCapacity(Integer.parseInt(subStr[4].trim()));
+//            electricBike.setColor(subStr[5].trim());
+//            electricBike.setPrice(new BigDecimal(subStr[6].trim()));
+//            CollectionBike.electricBikes.add(electricBike);
+            FileManagerService.addToCollectionElectricBike(optionsBike);
             return true;
         }
         return false;

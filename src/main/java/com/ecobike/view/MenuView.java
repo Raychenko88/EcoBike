@@ -148,7 +148,9 @@ public class MenuView {
             set.addAll(CollectionBike.electricBikes);
             set.addAll(CollectionBike.speedelecs);
             if (ViewService.writeToFile(EcoBikeApplication.FILE_NAME, set)) {
-                System.out.println("All changes are added to the file.");
+                System.out.println("\n" +
+                        "If you added a new bike to the menu 2, 3 or 4 - then the change is written to the file.\n" +
+                        "Otherwise, the file is overwritten with the same data." + "\n");
                 return true;
             } else {
                 return false;
@@ -283,6 +285,7 @@ public class MenuView {
         System.out.println("FOLDING BIKE Benetti; 24; 27; 11400; false; rose; 1009");
         System.out.println("Where: FOLDING BIKE Benetti - A brand; 24 - The size of the wheels (in inch); 27 - The number of gears" + "\n" +
                 "11400 - The weight of the bike (in grams); true or false - The availability of lights at front and back; rose - A color; 1009 - The price.");
+//        System.out.println();
     }
 
     private static void viewNewСonditionToSpeedelecBike() {
