@@ -3,22 +3,13 @@ package com.ecobike.view;
 import com.ecobike.EcoBikeApplication;
 import com.ecobike.model.DomainObject;
 import com.ecobike.model.FilterName;
-import com.ecobike.model.FoldingBike;
-import com.ecobike.model.Speedelec;
 import com.ecobike.repository.CollectionBike;
-import com.ecobike.service.FileManagerService;
 import com.ecobike.service.ViewService;
 
 import java.util.*;
 
 
 public class MenuView {
-
-//    static {
-//        FileManagerService.fillCollectionsFromFile(EcoBikeApplication.FILE_NAME);
-//    }
-
-    static Scanner scanner = new Scanner(System.in);
 
     private static String showChoice = "Please make your choice:\n" +
             "1 - Show the entire EcoBike catalog\n" +
@@ -63,14 +54,14 @@ public class MenuView {
                     if (checkChoice(intChoice, scanner)) {
                         mainMenu(scanner);
                     } else {
-                        System.out.println("\n" + "Unfortunately, it was not possible to save the data to a file."+ "\n");
+                        System.out.println("\n" + "Unfortunately, it was not possible to save the data to a file." + "\n");
                         mainMenu(scanner);
                     }
 
                 } else if (intChoice.equals("7")) {
                     System.out.println("\n" + "You have left the program" + "\n");
                     break;
-                }else {
+                } else {
                     System.out.println("\n" + "You entered the wrong number, try again." + "\n");
                     mainMenu(scanner);
                 }
@@ -156,7 +147,6 @@ public class MenuView {
                 return false;
             }
         }
-        // тут должна быть рекурсия на этот же метод
         return false;
     }
 
@@ -179,20 +169,20 @@ public class MenuView {
                 filterNameHashMap.put(FilterName.MAXIMUM_SPEED, subStr[1].trim());
                 filterNameHashMap.put(FilterName.WEIGHT, subStr[2].trim());
                 filterNameHashMap.put(FilterName.LIGHTS, subStr[3].trim());
-            }else if (subStr.length == 5) {
+            } else if (subStr.length == 5) {
                 filterNameHashMap.put(FilterName.BRAND, subStr[0]);
                 filterNameHashMap.put(FilterName.MAXIMUM_SPEED, subStr[1].trim());
                 filterNameHashMap.put(FilterName.WEIGHT, subStr[2].trim());
                 filterNameHashMap.put(FilterName.LIGHTS, subStr[3].trim());
                 filterNameHashMap.put(FilterName.BATTERY, subStr[4].trim());
-            }else if (subStr.length == 6) {
+            } else if (subStr.length == 6) {
                 filterNameHashMap.put(FilterName.BRAND, subStr[0]);
                 filterNameHashMap.put(FilterName.MAXIMUM_SPEED, subStr[1].trim());
                 filterNameHashMap.put(FilterName.WEIGHT, subStr[2].trim());
                 filterNameHashMap.put(FilterName.LIGHTS, subStr[3].trim());
                 filterNameHashMap.put(FilterName.BATTERY, subStr[4].trim());
                 filterNameHashMap.put(FilterName.COLOR, subStr[5].trim());
-            }else if (subStr.length == 7) {
+            } else if (subStr.length == 7) {
                 filterNameHashMap.put(FilterName.BRAND, subStr[0]);
                 filterNameHashMap.put(FilterName.MAXIMUM_SPEED, subStr[1].trim());
                 filterNameHashMap.put(FilterName.WEIGHT, subStr[2].trim());
@@ -203,34 +193,34 @@ public class MenuView {
             }
 
         } else if (string.startsWith("E-BIKE")) {
-            if (subStr.length == 1){
+            if (subStr.length == 1) {
                 filterNameHashMap.put(FilterName.BRAND, subStr[0]);
-            }else if (subStr.length == 2){
+            } else if (subStr.length == 2) {
                 filterNameHashMap.put(FilterName.BRAND, subStr[0]);
                 filterNameHashMap.put(FilterName.MAXIMUM_SPEED, subStr[1].trim());
-            }else if (subStr.length == 3){
+            } else if (subStr.length == 3) {
                 filterNameHashMap.put(FilterName.BRAND, subStr[0]);
                 filterNameHashMap.put(FilterName.MAXIMUM_SPEED, subStr[1].trim());
                 filterNameHashMap.put(FilterName.WEIGHT, subStr[2].trim());
-            }else if (subStr.length == 4){
+            } else if (subStr.length == 4) {
                 filterNameHashMap.put(FilterName.BRAND, subStr[0]);
                 filterNameHashMap.put(FilterName.MAXIMUM_SPEED, subStr[1].trim());
                 filterNameHashMap.put(FilterName.WEIGHT, subStr[2].trim());
                 filterNameHashMap.put(FilterName.LIGHTS, subStr[3].trim());
-            }else if (subStr.length == 5){
+            } else if (subStr.length == 5) {
                 filterNameHashMap.put(FilterName.BRAND, subStr[0]);
                 filterNameHashMap.put(FilterName.MAXIMUM_SPEED, subStr[1].trim());
                 filterNameHashMap.put(FilterName.WEIGHT, subStr[2].trim());
                 filterNameHashMap.put(FilterName.LIGHTS, subStr[3].trim());
                 filterNameHashMap.put(FilterName.BATTERY, subStr[4].trim());
-            }else if (subStr.length == 6){
+            } else if (subStr.length == 6) {
                 filterNameHashMap.put(FilterName.BRAND, subStr[0]);
                 filterNameHashMap.put(FilterName.MAXIMUM_SPEED, subStr[1].trim());
                 filterNameHashMap.put(FilterName.WEIGHT, subStr[2].trim());
                 filterNameHashMap.put(FilterName.LIGHTS, subStr[3].trim());
                 filterNameHashMap.put(FilterName.BATTERY, subStr[4].trim());
                 filterNameHashMap.put(FilterName.COLOR, subStr[5].trim());
-            }else if (subStr.length == 7){
+            } else if (subStr.length == 7) {
                 filterNameHashMap.put(FilterName.BRAND, subStr[0]);
                 filterNameHashMap.put(FilterName.MAXIMUM_SPEED, subStr[1].trim());
                 filterNameHashMap.put(FilterName.WEIGHT, subStr[2].trim());
@@ -240,34 +230,34 @@ public class MenuView {
                 filterNameHashMap.put(FilterName.PRICE, subStr[6].trim());
             }
         } else if (string.startsWith("FOLDING BIKE")) {
-            if (subStr.length == 1){
+            if (subStr.length == 1) {
                 filterNameHashMap.put(FilterName.BRAND, subStr[0]);
-            }else if (subStr.length == 2){
+            } else if (subStr.length == 2) {
                 filterNameHashMap.put(FilterName.BRAND, subStr[0]);
                 filterNameHashMap.put(FilterName.WHEEL_SIZE, subStr[1].trim());
-            }else if (subStr.length == 3){
+            } else if (subStr.length == 3) {
                 filterNameHashMap.put(FilterName.BRAND, subStr[0]);
                 filterNameHashMap.put(FilterName.WHEEL_SIZE, subStr[1].trim());
                 filterNameHashMap.put(FilterName.NUMBER_SPEEDS, subStr[2].trim());
-            }else if (subStr.length == 4){
+            } else if (subStr.length == 4) {
                 filterNameHashMap.put(FilterName.BRAND, subStr[0]);
                 filterNameHashMap.put(FilterName.WHEEL_SIZE, subStr[1].trim());
                 filterNameHashMap.put(FilterName.NUMBER_SPEEDS, subStr[2].trim());
                 filterNameHashMap.put(FilterName.WEIGHT, subStr[3].trim());
-            }else if (subStr.length == 5){
+            } else if (subStr.length == 5) {
                 filterNameHashMap.put(FilterName.BRAND, subStr[0]);
                 filterNameHashMap.put(FilterName.WHEEL_SIZE, subStr[1].trim());
                 filterNameHashMap.put(FilterName.NUMBER_SPEEDS, subStr[2].trim());
                 filterNameHashMap.put(FilterName.WEIGHT, subStr[3].trim());
                 filterNameHashMap.put(FilterName.LIGHTS, subStr[4].trim());
-            }else if (subStr.length == 6){
+            } else if (subStr.length == 6) {
                 filterNameHashMap.put(FilterName.BRAND, subStr[0]);
                 filterNameHashMap.put(FilterName.WHEEL_SIZE, subStr[1].trim());
                 filterNameHashMap.put(FilterName.NUMBER_SPEEDS, subStr[2].trim());
                 filterNameHashMap.put(FilterName.WEIGHT, subStr[3].trim());
                 filterNameHashMap.put(FilterName.LIGHTS, subStr[4].trim());
                 filterNameHashMap.put(FilterName.COLOR, subStr[5].trim());
-            }else if (subStr.length == 7){
+            } else if (subStr.length == 7) {
                 filterNameHashMap.put(FilterName.BRAND, subStr[0]);
                 filterNameHashMap.put(FilterName.WHEEL_SIZE, subStr[1].trim());
                 filterNameHashMap.put(FilterName.NUMBER_SPEEDS, subStr[2].trim());
@@ -316,5 +306,4 @@ public class MenuView {
         System.out.println("Where: FOLDING BIKE Benetti - A brand; 24 - The size of the wheels (in inch); 27 - The number of gears" + "\n" +
                 "11400 - The weight of the bike (in grams); true or false - The availability of lights at front and back; rose - A color; 1009 - The price." + "\n");
     }
-
 }

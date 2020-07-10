@@ -3,12 +3,13 @@ package com.ecobike.service;
 import com.ecobike.EcoBikeApplication;
 import com.ecobike.model.*;
 import com.ecobike.repository.CollectionBike;
-import com.ecobike.view.MenuView;
-import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 
 import java.math.BigDecimal;
-import java.util.*;
+import java.util.HashMap;
+import java.util.HashSet;
+import java.util.Set;
+import java.util.TreeSet;
 
 import static org.junit.jupiter.api.Assertions.*;
 

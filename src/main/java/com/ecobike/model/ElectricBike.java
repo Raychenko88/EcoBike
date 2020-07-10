@@ -1,12 +1,15 @@
 package com.ecobike.model;
 
-import lombok.*;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 @Setter
 @Getter
 @AllArgsConstructor
 @NoArgsConstructor
-public class ElectricBike extends DomainObject{
+public class ElectricBike extends DomainObject {
 
 
     private Integer maximumSpeed;
@@ -15,7 +18,7 @@ public class ElectricBike extends DomainObject{
     @Override
     public String toString() {
         return String.format("%s with %d mAh battery and %s head/tail light.\n" +
-                "Price: %s euros.", getBrand(), batteryCapacity, getLightsAtFrontAndBack()?"":"no", getPrice().toString());
+                "Price: %s euros.", getBrand(), batteryCapacity, getLightsAtFrontAndBack() ? "" : "no", getPrice().toString());
     }
 
     @Override
@@ -43,7 +46,7 @@ public class ElectricBike extends DomainObject{
             return false;
         }
         ElectricBike electricBike = (ElectricBike) obj;
-        return  electricBike.getBrand().equals(this.getBrand()) &&
+        return electricBike.getBrand().equals(this.getBrand()) &&
                 electricBike.getMaximumSpeed().equals(maximumSpeed) &&
                 electricBike.getWeight().equals(this.getWeight()) &&
                 electricBike.getLightsAtFrontAndBack().equals(this.getLightsAtFrontAndBack()) &&

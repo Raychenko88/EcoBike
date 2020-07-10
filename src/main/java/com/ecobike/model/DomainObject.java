@@ -7,7 +7,7 @@ import java.math.BigDecimal;
 
 @Setter
 @Getter
-public abstract class DomainObject implements Comparable{
+public abstract class DomainObject implements Comparable {
 
     private String brand;
     private String color;
@@ -19,25 +19,25 @@ public abstract class DomainObject implements Comparable{
     public int compareTo(Object o) {
         DomainObject domainObject = (DomainObject) o;
         int cBrand = brand.compareTo(domainObject.getBrand());
-        if (cBrand == 0 ){
+        if (cBrand == 0) {
             int cColor = color.compareTo(domainObject.getColor());
-            if (cColor == 0){
+            if (cColor == 0) {
                 int cPrice = price.compareTo(domainObject.price);
-                if (cPrice == 0){
+                if (cPrice == 0) {
                     int cLight = lightsAtFrontAndBack.compareTo(domainObject.getLightsAtFrontAndBack());
-                    if (cLight == 0){
+                    if (cLight == 0) {
                         return weight.compareTo(domainObject.getWeight());
-                    }else {
+                    } else {
                         return cLight;
                     }
-                }else {
+                } else {
                     return cPrice;
                 }
-            }else {
+            } else {
                 return cColor;
             }
-        }else {
-           return cBrand;
+        } else {
+            return cBrand;
         }
     }
 

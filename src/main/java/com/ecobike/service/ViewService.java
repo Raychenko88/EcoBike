@@ -5,8 +5,9 @@ import com.ecobike.model.*;
 import com.ecobike.repository.CollectionBike;
 import lombok.EqualsAndHashCode;
 
-import java.math.BigDecimal;
-import java.util.*;
+import java.util.Map;
+import java.util.Set;
+import java.util.TreeSet;
 import java.util.stream.Collectors;
 
 @EqualsAndHashCode

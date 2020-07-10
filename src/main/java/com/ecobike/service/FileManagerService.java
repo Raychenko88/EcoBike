@@ -10,25 +10,12 @@ import lombok.EqualsAndHashCode;
 import java.io.*;
 import java.math.BigDecimal;
 import java.net.URLDecoder;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Scanner;
 import java.util.Set;
 
 @EqualsAndHashCode
 public class FileManagerService {
 
-
     private static final String DELIMETER = ";";
-
-
-//    public static void addAllCollections(String fileName) {
-//        if (checkPathAndFile(fileName)) {
-//            FileManagerService.fillCollectionsFromFile(fileName);
-//        } else {
-//            System.out.println("Check data fail");
-//        }
-//    }
 
     public static boolean checkPathAndFile(String fileName) {
         File isFile = new File(fileName);
@@ -37,11 +24,11 @@ public class FileManagerService {
 
     public static boolean writeFile(String fileName, Set<DomainObject> set) {
         File file = new File(fileName);
-        if (file != null){
-            try( FileWriter writer = new FileWriter(file);
+        if (file != null) {
+            try (FileWriter writer = new FileWriter(file);
                  BufferedWriter bufferedWriter = new BufferedWriter(writer);) {
 
-                for (DomainObject bike : set){
+                for (DomainObject bike : set) {
                     bufferedWriter.write(bike.toStringToWrite() + "\n");
                 }
 
@@ -52,7 +39,7 @@ public class FileManagerService {
                 return false;
             }
         }
-       return false;
+        return false;
     }
 
     public static synchronized void fillCollectionsFromFile(String fileName) {
@@ -101,6 +88,7 @@ public class FileManagerService {
         speedelec.setPrice(new BigDecimal(subStr[6].trim()));
         CollectionBike.speedelecs.add(speedelec);
     }
+
     public static synchronized void addToCollectionElectricBike(String item) {
         String[] subStr = item.split(DELIMETER);
         ElectricBike electricBike = new ElectricBike();
@@ -113,6 +101,7 @@ public class FileManagerService {
         electricBike.setPrice(new BigDecimal(subStr[6].trim()));
         CollectionBike.electricBikes.add(electricBike);
     }
+
     public static synchronized void addToCollectionFoldingBike(String item) {
         String[] subStr = item.split(DELIMETER);
         FoldingBike foldingBike = new FoldingBike();
@@ -125,6 +114,4 @@ public class FileManagerService {
         foldingBike.setPrice(new BigDecimal(subStr[6].trim()));
         CollectionBike.foldingBikes.add(foldingBike);
     }
-
 }
-

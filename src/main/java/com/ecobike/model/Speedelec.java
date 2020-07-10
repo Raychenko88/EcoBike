@@ -1,6 +1,9 @@
 package com.ecobike.model;
 
-import lombok.*;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 @Setter
 @Getter
@@ -43,7 +46,7 @@ public class Speedelec extends DomainObject {
             return false;
         }
         Speedelec speedelec = (Speedelec) obj;
-        return  speedelec.getBrand().equals(this.getBrand()) &&
+        return speedelec.getBrand().equals(this.getBrand()) &&
                 speedelec.getMaximumSpeed().equals(maximumSpeed) &&
                 speedelec.getWeight().equals(this.getWeight()) &&
                 speedelec.getLightsAtFrontAndBack().equals(this.getLightsAtFrontAndBack()) &&

@@ -1,8 +1,9 @@
 package com.ecobike.model;
 
-import lombok.*;
-
-import java.math.BigDecimal;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 @Setter
 @Getter
@@ -39,18 +40,17 @@ public class FoldingBike extends DomainObject {
 
     @Override
     public boolean equals(Object obj) {
-
-            if (obj == this) return true;
-            if (!(obj instanceof FoldingBike)) {
-                return false;
-            }
-                FoldingBike foldingBike = (FoldingBike) obj;
-                return  foldingBike.getBrand().equals(this.getBrand()) &&
-                        foldingBike.getWheelSize().equals(wheelSize) &&
-                        foldingBike.getNumberOfSpeeds().equals(numberOfSpeeds) &&
-                        foldingBike.getWeight().equals(this.getWeight()) &&
-                        foldingBike.getLightsAtFrontAndBack().equals(this.getLightsAtFrontAndBack()) &&
-                        foldingBike.getColor().equals(this.getColor()) &&
-                        foldingBike.getPrice().equals(this.getPrice());
+        if (obj == this) return true;
+        if (!(obj instanceof FoldingBike)) {
+            return false;
+        }
+        FoldingBike foldingBike = (FoldingBike) obj;
+        return foldingBike.getBrand().equals(this.getBrand()) &&
+                foldingBike.getWheelSize().equals(wheelSize) &&
+                foldingBike.getNumberOfSpeeds().equals(numberOfSpeeds) &&
+                foldingBike.getWeight().equals(this.getWeight()) &&
+                foldingBike.getLightsAtFrontAndBack().equals(this.getLightsAtFrontAndBack()) &&
+                foldingBike.getColor().equals(this.getColor()) &&
+                foldingBike.getPrice().equals(this.getPrice());
     }
 }
